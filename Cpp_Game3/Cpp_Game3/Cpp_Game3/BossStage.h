@@ -1,15 +1,14 @@
 #pragma once
-#include "Object.h"
+#include "Scene.h"
 
-class Player : public Object
+class BossStage : public Scene
 {
 public:
 	virtual void Start()override;
-	virtual int Update()override;
+	virtual void Update()override;
 	virtual void Render()override;
 	virtual void Release()override;
 public:
-	Player();
-	virtual ~Player();
+	BossStage();
+	virtual ~BossStage();
 };
-

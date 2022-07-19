@@ -27,27 +27,27 @@ void SceneManager::SetScene(SCENEID _SceneID)
 	switch (_SceneID)
 	{
 	case SCENEID::LOGO:
-		SceneState = new ;
+		SceneState = new Logo;
 		break;
 	
 	case SCENEID::MENU:
-		SceneState = new ;
+		SceneState = new Menu;
 		break;
 	
 	case SCENEID::STAGE:
-		SceneState = new ;
+		SceneState = new Stage;
 		break;
 	
 	case SCENEID::BOSS:
-		SceneState = new ;
+		SceneState = new Boss;
 		break;
 
 	case SCENEID::ENDING:
-		SceneState = new ;
+		SceneState = new Ending;
 		break;
 
 	case SCENEID::EXIT:
-		SceneState = new ;
+		exit(NULL);
 		break;
 	}
 	SceneState->Start();

@@ -67,11 +67,11 @@
     <Filter Include="소스 파일\2.Scene\3.Stage">
       <UniqueIdentifier>{573410ba-7c5d-4c0c-8b92-1531c579f0be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\2.Scene\4.Boss">
-      <UniqueIdentifier>{724576a6-950e-4e6d-ad83-b5d4aaab8a06}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\2.Scene\5.Ending">
       <UniqueIdentifier>{39dd015f-6275-4716-b58f-2af3a9c4a94b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Scene\4.BossStage">
+      <UniqueIdentifier>{724576a6-950e-4e6d-ad83-b5d4aaab8a06}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -117,11 +117,11 @@
     <ClCompile Include="Stage.cpp">
       <Filter>소스 파일\2.Scene\3.Stage</Filter>
     </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>소스 파일\2.Scene\4.Boss</Filter>
-    </ClCompile>
     <ClCompile Include="Ending.cpp">
       <Filter>소스 파일\2.Scene\5.Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStage.cpp">
+      <Filter>소스 파일\2.Scene\4.BossStage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,11 +185,11 @@
     <ClInclude Include="Stage.h">
       <Filter>소스 파일\2.Scene\3.Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>소스 파일\2.Scene\4.Boss</Filter>
-    </ClInclude>
     <ClInclude Include="Ending.h">
       <Filter>소스 파일\2.Scene\5.Ending</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStage.h">
+      <Filter>소스 파일\2.Scene\4.BossStage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
