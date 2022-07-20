@@ -2,7 +2,7 @@
 #include "Logo.h"
 #include "Menu.h"
 #include "Stage.h"
-#include "Boss.h"
+#include "BossStage.h"
 #include "Ending.h"
 
 SceneManager* SceneManager::Instance = nullptr;
@@ -39,7 +39,7 @@ void SceneManager::SetScene(SCENEID _SceneID)
 		break;
 	
 	case SCENEID::BOSS:
-		SceneState = new Boss;
+		SceneState = new BossStage;
 		break;
 
 	case SCENEID::ENDING:

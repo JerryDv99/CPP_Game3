@@ -17,8 +17,9 @@ private:
 	Object* pBullet[256];
 	Object* pPlayer;
 	Object* pEnemy[32];
+	ULONGLONG Time;
 public:
-	void CreateObject(int _StateIndex);
+	void CreateObject(int _StateIndex, Vector3 _Position);
 	void Start();
 	void Update();
 	void Render();

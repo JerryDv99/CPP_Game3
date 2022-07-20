@@ -7,6 +7,8 @@ protected:
 	Transform Info;
 	Object* Target;
 	ULONGLONG Time;
+	int Option;
+	float Speed;
 public:
 	virtual void Start()PURE;
 	virtual int Update()PURE;

@@ -15,9 +15,10 @@ void Ending::Start()
 
 void Ending::Update()
 {
-	DWORD dwKey = InputManager::GetInstance()->GetKey();
+	/*DWORD dwKey = InputManager::GetInstance()->GetKey();
 
 	if (dwKey & KEY_RETURN)
+		SceneManager::GetInstance()->SetScene(SCENEID::MENU);*/
 }
 
 void Ending::Render()

@@ -17,7 +17,7 @@ void Stage::Update()
 {
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
 
-	if (dwKey & KEY_RETURN)
+	//if (dwKey & KEY_RETURN)
 }
 
 void Stage::Render()

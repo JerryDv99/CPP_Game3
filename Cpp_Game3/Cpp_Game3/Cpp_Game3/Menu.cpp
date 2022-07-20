@@ -15,9 +15,9 @@ void Menu::Start()
 
 void Menu::Update()
 {
-	DWORD dwKey = InputManager::GetInstance()->GetKey();
+	/*DWORD dwKey = InputManager::GetInstance()->GetKey();
 
-	if (dwKey & KEY_RETURN)
+	if (dwKey & KEY_RETURN)*/
 }
 
 void Menu::Render()

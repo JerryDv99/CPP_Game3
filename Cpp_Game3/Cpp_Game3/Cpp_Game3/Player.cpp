@@ -14,13 +14,17 @@ void Player::Start()
 	Info.Position = Vector3(0.0f, 0.0f);
 	Info.Rotation = Vector3(0.0f, 0.0f);
 	Info.Scale = Vector3(2.0f, 1.0f);
+
+	Target = nullptr;
+	Speed = 1.0f;
+	HP = 5;
 }
 
 int Player::Update()
 {
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
 
-	if (dwKey & KEY_AUP)
+	/*if (dwKey & KEY_AUP)
 		
 
 	if (dwKey & KEY_ADOWN)
@@ -45,8 +49,10 @@ int Player::Update()
 		Info.Position.x++;
 
 	if (dwKey & KEY_R)
-	
-	if (dwKey & KEY_SPACE)
+
+	if (dwKey & KEY_SPACE)*/
+
+		return 0;
 }
 
 void Player::Render()
