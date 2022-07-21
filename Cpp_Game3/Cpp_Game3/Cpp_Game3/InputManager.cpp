@@ -40,7 +40,7 @@ void InputManager::CheckKey()
 	if (GetAsyncKeyState(VK_LEFT))
 		dwKey |= KEY_ALEFT;
 
-	if (GetAsyncKeyState(KEY_RIGHT))
+	if (GetAsyncKeyState(VK_RIGHT))
 		dwKey |= KEY_ARIGHT;
 
 
@@ -48,9 +48,9 @@ void InputManager::CheckKey()
 	if (GetAsyncKeyState(VK_SPACE))
 		dwKey |= KEY_SPACE;
 
-	if (GetAsyncKeyState(KEY_RETURN))
+	if (GetAsyncKeyState(VK_RETURN))
 		dwKey |= KEY_RETURN;
 
-	if (GetAsyncKeyState(KEY_TAP))
+	if (GetAsyncKeyState(VK_TAB))
 		dwKey |= KEY_TAP;
 }

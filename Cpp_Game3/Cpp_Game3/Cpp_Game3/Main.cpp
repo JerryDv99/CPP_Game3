@@ -11,7 +11,7 @@ int main(void)
 
 	while (true)
 	{
-		if (Time + 50 < GetTickCount64())
+		if (Time <= GetTickCount64())
 		{
 			system("cls");
 

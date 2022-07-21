@@ -72,7 +72,7 @@ void CursorManager::ClearBuffer()
 	COORD Coord = { 0, 0 };
 	DWORD dw = 0;
 
-	FillConsoleOutputCharacter(HBuffer[BufferIndex], ' ', 150 * 40, Coord, &dw);
+	FillConsoleOutputCharacter(HBuffer[BufferIndex], ' ', 160 * 50, Coord, &dw);
 }
 
 void CursorManager::DestroyBuffer()

@@ -3,6 +3,11 @@
 
 class Menu : public Scene
 {
+private:
+	char* BackGround[128];
+	int BColor1;
+	int BColor2;
+	int BColor3;
 public:
 	virtual void Start()override;
 	virtual void Update()override;

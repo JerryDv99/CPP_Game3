@@ -23,6 +23,7 @@ void MainUpdate::Update()
 	CursorManager::GetInstance()->FlippingBuffer();
 
 	InputManager::GetInstance()->CheckKey();
+
 	SceneManager::GetInstance()->Update();
 }
 

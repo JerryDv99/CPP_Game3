@@ -3,21 +3,17 @@
 #include "SceneManager.h"
 #include "CursorManager.h"
 
-Logo::Logo()
+Logo::Logo() : Count(0), LTime(0)
 {
+
 }
 
 Logo::~Logo()
 {
-    Release();
 }
 
 void Logo::Start()
-{
-	Time = GetTickCount64();	
-	
-				
-	
+{		
     Buffer[0]  = (char*)"ZdmmmmmmmmmaPHo~                                                         ";
     Buffer[1]  = (char*)"#r3mKsssKsss3qsH0^                           `~xyssVx~`    ~===~====~===`";
     Buffer[2]  = (char*)"#r#:6HPPHHHPPam$VD3   B?#~#mH    .@L0yx#r  !MMG5MZZM5GWMc` qbbbZbbbbZZbb:";
@@ -118,19 +114,20 @@ void Logo::Start()
     ColorP1 = 12;
     ColorP2 = 6;
     Time = GetTickCount64();
+    LTime = GetTickCount64();
 }
 
 void Logo::Update()
 {
+	DWORD dwKey = InputManager::GetInstance()->GetKey();
     if (Time + 1000 < GetTickCount64())
     {
         Time = GetTickCount64();
         ColorL1 = rand() % 3 + 7;
         ColorL2 = rand() % 5 + 10;
     }
-	DWORD dwKey = InputManager::GetInstance()->GetKey();
 
-	if (dwKey & KEY_RETURN || Time + 5000 <= GetTickCount64())
+	if (dwKey & KEY_RETURN || LTime + 5000 <= GetTickCount64())
 		SceneManager::GetInstance()->SetScene(SCENEID::MENU);
 }
 
@@ -203,6 +200,29 @@ void Logo::Render()
         else
             CursorManager::GetInstance()->WriteBuffer(127.0f, 10.0f, Buffer[i], ColorP1);
     }
+
+    for (int i = 0; i < 5; ++i)
+	{
+        if (Count != i)
+            Count = i;
+		if (LTime + i * 1000 > GetTickCount64())
+			CursorManager::GetInstance()->WriteBuffer(30.0f + 20.0f * i, 40.0f, (char*)"¡Ü", 14);
+		if (LTime + i * 1000 < GetTickCount64() && LTime + i * 1000 + 500 > GetTickCount64())
+		{
+			CursorManager::GetInstance()->WriteBuffer(28.0f + 20.0f * Count, 40.0f, (char*)"¿Ê¤Ñ", 10);
+			CursorManager::GetInstance()->WriteBuffer(70.0f, 42.0f, (char*)"Now Loading...");
+		}
+		if (LTime + i * 1000 + 990 > GetTickCount64() && LTime + i * 1000 + 500 < GetTickCount64())
+		{
+			CursorManager::GetInstance()->WriteBuffer(28.0f + 20.0f * Count, 40.0f, (char*)"¿Ê£¯", 10);		
+			CursorManager::GetInstance()->WriteBuffer(70.0f, 42.0f, (char*)"Now Loading..");
+		}
+		if (LTime + i * 1000 == GetTickCount64())
+		{
+			Count++;
+			break;
+		}
+	}
 }
 
 void Logo::Release()
