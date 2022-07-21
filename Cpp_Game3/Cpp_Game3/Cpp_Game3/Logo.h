@@ -6,7 +6,7 @@ class Logo : public Scene
 private:
 	int Length;
 	int MaxSize;
-	char* Buffer[64];
+	char* Buffer[128];
 
 	int ColorL1;
 	int ColorL2;
