@@ -51,6 +51,7 @@
     <ClCompile Include="CursorManager.cpp" />
     <ClCompile Include="Ending.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GuideManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -62,6 +63,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BossStage.h" />
@@ -73,6 +75,7 @@
     <ClInclude Include="Ending.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enum.h" />
+    <ClInclude Include="GuideManager.h" />
     <ClInclude Include="Headers.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Logo.h" />
@@ -87,6 +90,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Struct.h" />
+    <ClInclude Include="UIManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

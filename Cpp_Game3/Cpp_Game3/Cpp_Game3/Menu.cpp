@@ -2,6 +2,8 @@
 #include "SceneManager.h"
 #include "InputManager.h"
 #include "CursorManager.h"
+#include "UIManager.h"
+#include "GuideManager.h"
 
 Menu::Menu()
 {
@@ -125,23 +127,69 @@ void Menu::Start()
 	BColor1 = 11;
 	BColor2 = 14;
 	BColor3 = 10;
+	Cursor = 12;
+	Check = false;
+	Guide = false;
+
+	Time = GetTickCount64();
+	UIManager::GetInstance()->Start();
+	GuideManager::GetInstance()->Start();
 }
 
 void Menu::Update()
 {
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
+	
+	if (Time + 100 < GetTickCount64() && Check)
+		Check = false;
 
-	//if (dwKey & KEY_RETURN)
-		//SceneManager::GetInstance()->SetScene(SCENEID::STAGE);
+	if (Cursor > 12 && !Guide)
+	{
+		if (dwKey & KEY_AUP && !Check)
+		{
+			Cursor -= 4;
+			Check = true;
+			Time = GetTickCount64();
+		}
+	}
 
-	if (dwKey & KEY_LEFT)
+	if (Cursor < 20 && !Guide)
+	{
+		if (dwKey & KEY_ADOWN && !Check)
+		{
+			Cursor += 4;		
+			Check = true;
+			Time = GetTickCount64();
+		}
+	}
+
+	if (dwKey & KEY_RETURN && Time + 200 < GetTickCount64())
+	{
+		switch (Cursor)
+		{
+		case 12:
+			SceneManager::GetInstance()->SetScene(SCENEID::STAGE);
+			break;
+		case 16:
+			Guide = true;
+			break;
+		case 20:
+			exit(NULL);
+			break;
+		}
+	}
+
+	if (dwKey & KEY_R)
+		Guide = false;
+
+	if (Cursor == 12 || Cursor == 20)
 	{
 		BColor1 = 8;
 		BColor2 = 12;
 		BColor3 = 6;
 	}
 
-	if (dwKey & KEY_RIGHT)
+	else if (Cursor == 16)
 	{
 		BColor1 = 11;
 		BColor2 = 14;
@@ -223,6 +271,30 @@ void Menu::Render()
 
 	for (int i = 100; i < 117; ++i)
 		CursorManager::GetInstance()->WriteBuffer(0.0f, 33.0f + (i - 100), BackGround[i], BColor3);
+	UIManager::GetInstance()->Render();
+	UIManager::GetInstance()->WriteUI(132, 6, (char*)"- 메 인 메 뉴 -", 14);
+	UIManager::GetInstance()->WriteUI(132, 12, (char*)"[ 게 임 시 작 ]", 8);
+	UIManager::GetInstance()->WriteUI(132, 16, (char*)"[ 조작 가이드 ]", 8);
+	UIManager::GetInstance()->WriteUI(132, 20, (char*)"[ 게 임 종 료 ]", 8);
+	UIManager::GetInstance()->WriteUI(128, 43, (char*)"Tip)", 8);
+	UIManager::GetInstance()->WriteUI(128, 44, (char*)"키보드의 화살표로 움직이고", 8);
+	UIManager::GetInstance()->WriteUI(128, 45, (char*)"엔터키로 선택합니다", 8);
+	UIManager::GetInstance()->WriteUI(126, Cursor, (char*)"☞", 14);
+
+	switch (Cursor)
+	{
+	case 12:
+		UIManager::GetInstance()->WriteUI(132, 12, (char*)"[ 게 임 시 작 ]", 15);
+		break;
+	case 16:
+		UIManager::GetInstance()->WriteUI(132, 16, (char*)"[ 조작 가이드 ]", 15);
+		break;
+	case 20:
+		UIManager::GetInstance()->WriteUI(132, 20, (char*)"[ 게 임 종 료 ]", 15);
+		break;
+	}
+	if (Guide)
+		GuideManager::GetInstance()->Render();
 }
 
 void Menu::Release()

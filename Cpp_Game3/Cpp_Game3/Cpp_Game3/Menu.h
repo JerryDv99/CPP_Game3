@@ -8,6 +8,9 @@ private:
 	int BColor1;
 	int BColor2;
 	int BColor3;
+	int Cursor;
+	bool Check;
+	bool Guide;
 public:
 	virtual void Start()override;
 	virtual void Update()override;

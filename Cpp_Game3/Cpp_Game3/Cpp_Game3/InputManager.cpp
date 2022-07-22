@@ -52,5 +52,5 @@ void InputManager::CheckKey()
 		dwKey |= KEY_RETURN;
 
 	if (GetAsyncKeyState(VK_TAB))
-		dwKey |= KEY_TAP;
+		dwKey |= KEY_TAB;
 }
