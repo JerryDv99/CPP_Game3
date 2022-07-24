@@ -14,7 +14,9 @@ public:
 		return Instance;
 	}
 private:
-	char* GuideScene[64];
+	char* GuideScene[128];
+	int Count;
+	bool Check;
 public:
 	void Start();
 	void Update();

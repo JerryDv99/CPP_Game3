@@ -1,3 +1,3 @@
 #pragma once
 
-enum class SCENEID { LOGO, MENU, STAGE, BOSS, ENDING, EXIT };
+enum class SCENEID { LOGO, MENU, STORY, STAGE, BOSS, ENDING, EXIT };

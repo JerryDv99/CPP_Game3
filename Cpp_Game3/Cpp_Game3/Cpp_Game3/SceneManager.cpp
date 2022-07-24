@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "Logo.h"
 #include "Menu.h"
+#include "Story.h"
 #include "Stage.h"
 #include "BossStage.h"
 #include "Ending.h"
@@ -33,6 +34,9 @@ void SceneManager::SetScene(SCENEID _SceneID)
 	case SCENEID::MENU:
 		SceneState = new Menu;
 		break;
+	
+	case SCENEID::STORY:
+		SceneState = new Story;
 	
 	case SCENEID::STAGE:
 		SceneState = new Stage;

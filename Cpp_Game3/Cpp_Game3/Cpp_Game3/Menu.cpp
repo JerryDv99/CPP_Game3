@@ -140,6 +140,8 @@ void Menu::Update()
 {
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
 	
+	GuideManager::GetInstance()->Update();
+
 	if (Time + 100 < GetTickCount64() && Check)
 		Check = false;
 
@@ -168,7 +170,7 @@ void Menu::Update()
 		switch (Cursor)
 		{
 		case 12:
-			SceneManager::GetInstance()->SetScene(SCENEID::STAGE);
+			SceneManager::GetInstance()->SetScene(SCENEID::STORY);
 			break;
 		case 16:
 			Guide = true;

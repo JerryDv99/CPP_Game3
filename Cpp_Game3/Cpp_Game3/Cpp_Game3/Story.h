@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 
-class Menu : public Scene
+class Story : public Scene
 {
 public:
 	virtual void Start()override;
@@ -9,14 +9,9 @@ public:
 	virtual void Render()override;
 	virtual void Release()override;
 private:
-	char* BackGround[128];
-	int BColor1;
-	int BColor2;
-	int BColor3;
-	int Cursor;
-	bool Check;
-	bool Guide;
+	char* Prologue[128];
 public:
-	Menu();
-	virtual ~Menu();
+	Story();
+	virtual ~Story();
 };
+
