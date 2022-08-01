@@ -4,12 +4,19 @@
 class ObjectFactory
 {
 public:
-
 	static Object* CreatePlayer()
 	{
 		Object* pObject = new Player;
 		pObject->Start();
 		
+		return pObject;
+	}
+	
+	static Object* CreateCursor()
+	{
+		Object* pObject = new Cursor;
+		pObject->Start();
+
 		return pObject;
 	}
 
@@ -46,6 +53,24 @@ public:
 		pObject->Start();
 		pObject->SetPosition(_Position);
 		
+		return pObject;
+	}
+
+	static Object* CreateItem()
+	{
+		Object* pObject = new Item;
+		pObject->Start();
+		
+		return pObject;
+	}
+
+	static Object* CreateItem(Vector3 _Position)
+	{
+		Object* pObject = new Item;
+
+		pObject->Start();
+		pObject->SetPosition(_Position);
+
 		return pObject;
 	}
 };

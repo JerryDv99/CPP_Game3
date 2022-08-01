@@ -1,19 +1,15 @@
 #pragma once
 #include "Object.h"
 
-class Enemy : public Object
+class Item : public Object
 {
-private:
-	ULONGLONG Time;
-	int Count;
-	int Rand;
 public:
 	virtual void Start()override;
-	virtual int  Update(bool _Pause)override;
+	virtual int Update(bool _Pause)override;
 	virtual void Render()override;
 	virtual void Release()override;
 public:
-	Enemy();
-	virtual ~Enemy();
+	Item();
+	virtual ~Item();
 };
 

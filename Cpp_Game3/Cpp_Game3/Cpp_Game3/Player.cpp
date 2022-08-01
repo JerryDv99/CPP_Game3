@@ -1,7 +1,8 @@
 #include "Player.h"
 #include "InputManager.h"
+#include "CursorManager.h"
 
-Player::Player()
+Player::Player() : HP(0)
 {
 }
 
@@ -11,7 +12,7 @@ Player::~Player()
 
 void Player::Start()
 {
-	Info.Position = Vector3(0.0f, 0.0f);
+	Info.Position = Vector3(60.0f, 25.0f);
 	Info.Rotation = Vector3(0.0f, 0.0f);
 	Info.Scale = Vector3(2.0f, 1.0f);
 
@@ -20,43 +21,35 @@ void Player::Start()
 	HP = 5;
 }
 
-int Player::Update()
+int Player::Update(bool _Pause)
 {
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
 
-	/*if (dwKey & KEY_AUP)
-		
-
-	if (dwKey & KEY_ADOWN)
-
-
-	if (dwKey & KEY_ALEFT)
-
-
-	if (dwKey & KEY_ARIGHT)
-
-
 	if (dwKey & KEY_UP)
-		Info.Position.y--;
+		if(Info.Position.y > 0)
+			Info.Position.y--;
 
 	if (dwKey & KEY_DOWN)
-		Info.Position.y++;
+		if (Info.Position.y < 49)
+			Info.Position.y++;
 
 	if (dwKey & KEY_LEFT)
-		Info.Position.x--;
+		if (Info.Position.x > 0)
+			Info.Position.x -= 2;
 
 	if (dwKey & KEY_RIGHT)
-		Info.Position.x++;
+		if (Info.Position.x < 118)
+			Info.Position.x += 2;
 
-	if (dwKey & KEY_R)
+	if (dwKey & KEY_SPACE)
+		return 1;
 
-	if (dwKey & KEY_SPACE)*/
-
-		return 0;
+	return 0;
 }
 
 void Player::Render()
 {
+	CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"¿Ê", 14);
 }
 
 void Player::Release()

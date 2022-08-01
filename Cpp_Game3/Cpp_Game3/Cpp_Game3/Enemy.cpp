@@ -60,7 +60,7 @@ void Enemy::Start()
 	}
 }
 
-int Enemy::Update()
+int Enemy::Update(bool _Pause)
 {
 	Info.Direction = MathManager::GetDirection(Info.Position, Target->GetPosition());
 	Info.Position += Info.Direction * (Speed * 0.05f);

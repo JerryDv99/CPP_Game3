@@ -14,13 +14,15 @@ public:
 		return Instance;
 	}
 private:
-	char* GuideScene[128];
+	char* Border[64];
+	char* CtrlGuide[64];
+	char* ItemTuto[32];
 	int Count;
 	bool Check;
 public:
 	void Start();
 	void Update();
-	void Render();
+	void Render(int _Option);
 	void Release();
 public:
 	GuideManager();

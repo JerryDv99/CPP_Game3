@@ -11,91 +11,106 @@ GuideManager::~GuideManager()
 {
 }
 
-
- 
-
-
 void GuideManager::Start()
 {
-	GuideScene[0]  = (char*)"¦£¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¦¤";
-	GuideScene[1]  = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[2]  = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[3]  = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[4]  = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[5]  = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[6]  = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[7]  = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[8]  = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[9]  = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[10] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[11] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[12] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[13] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[14] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[15] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[16] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[17] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[18] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[19] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[20] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[21] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[22] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[23] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[24] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[25] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[26] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[27] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[28] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[29] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[30] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[31] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[32] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[33] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[34] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[35] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[36] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[37] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[38] = (char*)"¤Ó                                                                            ¤Ó";
-	GuideScene[39] = (char*)"¦¦¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¦¥";
-	GuideScene[40] = (char*)"  _____          __            __  _____      _    __";
-	GuideScene[41] = (char*)" / ___/__  ___  / /_________  / / / ___/__ __(_)__/ /__";
-	GuideScene[42] = (char*)"/ /__/ _ |/ _ |/  __/ __/ _ |/ / / (_ // // / / _  / -_)";
-	GuideScene[43] = (char*)"|___/|___/_//_/¡¬__/_/  ¡¬__/_/  |___/|____/_/¡¬__/¡¬__/";
-	GuideScene[44] = (char*)"        ¦£¤Ñ¤Ñ¦¤";
-	GuideScene[45] = (char*)"        ¤Ó W  ¤Ó";
-	GuideScene[46] = (char*)"        ¦¦¤Ñ¤Ñ¦¥";
-	GuideScene[47] = (char*)"¦£¤Ñ¤Ñ¦¤¦£¤Ñ¤Ñ¦¤¦£¤Ñ¤Ñ¦¤";
-	GuideScene[48] = (char*)"¤Ó A  ¤Ó¤Ó S  ¤Ó¤Ó D  ¤Ó";
-	GuideScene[49] = (char*)"¦¦¤Ñ¤Ñ¦¥¦¦¤Ñ¤Ñ¦¥¦¦¤Ñ¤Ñ¦¥";
-	GuideScene[50] = (char*)"        ¦£¤Ñ¤Ñ¦¤";
-	GuideScene[51] = (char*)"        ¤Ó ¡ã ¤Ó";
-	GuideScene[52] = (char*)"        ¦¦¤Ñ¤Ñ¦¥";
-	GuideScene[53] = (char*)"¦£¤Ñ¤Ñ¦¤¦£¤Ñ¤Ñ¦¤¦£¤Ñ¤Ñ¦¤";
-	GuideScene[54] = (char*)"¤Ó ¢¸ ¤Ó¤Ó ¡å ¤Ó¤Ó ¢º ¤Ó";
-	GuideScene[55] = (char*)"¦¦¤Ñ¤Ñ¦¥¦¦¤Ñ¤Ñ¦¥¦¦¤Ñ¤Ñ¦¥";
-	GuideScene[56] = (char*)"¦£¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¦¤";
-	GuideScene[57] = (char*)"¤Ó       SPACE        ¤Ó";
-	GuideScene[58] = (char*)"¦¦¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¦¥";
-	GuideScene[59] = (char*)"¦£¤Ñ¤Ñ¦¤";
-	GuideScene[60] = (char*)"¤Ó R  ¤Ó";
-	GuideScene[61] = (char*)"¦¦¤Ñ¤Ñ¦¥";
-	GuideScene[62] = (char*)"¦£¤Ñ¤Ñ¤Ñ¤Ñ¦¤";
-	GuideScene[63] = (char*)"¤Ó  TAB   ¤Ó";
-	GuideScene[64] = (char*)"¦¦¤Ñ¤Ñ¤Ñ¤Ñ¦¥";
-	GuideScene[65] = (char*)"¿Ê";
-	GuideScene[66] = (char*)"*";
-	GuideScene[67] = (char*)"ÀÚÆÇÀÇ W, A, S, D Å°´Â";
-	GuideScene[68] = (char*)"°¢°¢ »ó, ÇÏ, ÁÂ, ¿ì·Î ÀÌµ¿ÇÕ´Ï´Ù";
-	GuideScene[69] = (char*)"¹æÇâÅ°·Î ÃÑ±¸ÀÇ ¹æÇâÀ» Á¶ÀÛÇÕ´Ï´Ù";
-	GuideScene[70] = (char*)"À§,¾Æ·¡·Î´Â »óÇÏ°¢À»,";
-	GuideScene[71] = (char*)"ÁÂ,¿ì´Â ¹æÇâÀ» Á¶ÀýÇÕ´Ï´Ù";
-	GuideScene[72] = (char*)"½ºÆäÀÌ½º ¹Ù¸¦ ´©¸£¸é";
-	GuideScene[73] = (char*)"ÃÑ±¸ÀÇ ¹æÇâÀ¸·Î ÃÑ¾ËÀÌ ¹ß»çµË´Ï´Ù";
-	GuideScene[74] = (char*)"ÀûÀ» Ã³Ä¡ÇØ Á¡¼ö¸¦ È¹µæÇÏ°í ½ºÅ³ °ÔÀÌÁö¸¦ Ã¤¿ï ¼ö ÀÖ½À´Ï´Ù";
-	GuideScene[75] = (char*)"ÇÇ°Ý ¾øÀÌ ¿¬¼ÓÃ³Ä¡½Ã ÄÞº¸ Á¡¼ö¿Í ´õ ¸¹Àº °ÔÀÌÁö¸¦ ¾ò½À´Ï´Ù";
-	GuideScene[76] = (char*)"½ºÅ³ °ÔÀÌÁö¸¦ ²Ë Ã¤¿ö °­·ÂÇÑ ÇÊ»ì±â¸¦ »ç¿ëÇØ º¸¼¼¿ä !";
-	GuideScene[77] = (char*)"°ÔÀÓÁß TAB Å°¸¦ ´©¸£¸é ¸Þ´ºÃ¢À» ºÒ·¯¿É´Ï´Ù";	
-	GuideScene[78] = (char*)"[ R Å°¸¦ ´©¸£¸é ¸Þ´º·Î µ¹¾Æ°©´Ï´Ù ]";
+	Border[0]  = (char*)"¦£¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¦¤";
+	Border[1]  = (char*)"¤Ó                                                                            ¤Ó";
+	Border[2]  = (char*)"¤Ó                                                                            ¤Ó";
+	Border[3]  = (char*)"¤Ó                                                                            ¤Ó";
+	Border[4]  = (char*)"¤Ó                                                                            ¤Ó";
+	Border[5]  = (char*)"¤Ó                                                                            ¤Ó";
+	Border[6]  = (char*)"¤Ó                                                                            ¤Ó";
+	Border[7]  = (char*)"¤Ó                                                                            ¤Ó";
+	Border[8]  = (char*)"¤Ó                                                                            ¤Ó";
+	Border[9]  = (char*)"¤Ó                                                                            ¤Ó";
+	Border[10] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[11] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[12] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[13] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[14] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[15] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[16] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[17] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[18] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[19] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[20] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[21] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[22] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[23] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[24] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[25] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[26] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[27] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[28] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[29] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[30] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[31] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[32] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[33] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[34] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[35] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[36] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[37] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[38] = (char*)"¤Ó                                                                            ¤Ó";
+	Border[39] = (char*)"¦¦¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¦¥";
+	CtrlGuide[0] = (char*)"  _____          __            __  _____      _    __";
+	CtrlGuide[1] = (char*)" / ___/__  ___  / /_________  / / / ___/__ __(_)__/ /__";
+	CtrlGuide[2] = (char*)"/ /__/ _ |/ _ |/  __/ __/ _ |/ / / (_ // // / / _  / -_)";
+	CtrlGuide[3] = (char*)"|___/|___/_//_/¡¬__/_/  ¡¬__/_/  |___/|____/_/¡¬__/¡¬__/";
+	CtrlGuide[4] = (char*)"        ¦£¤Ñ¤Ñ¦¤";
+	CtrlGuide[5] = (char*)"        ¤Ó W  ¤Ó";
+	CtrlGuide[6] = (char*)"        ¦¦¤Ñ¤Ñ¦¥";
+	CtrlGuide[7] = (char*)"¦£¤Ñ¤Ñ¦¤¦£¤Ñ¤Ñ¦¤¦£¤Ñ¤Ñ¦¤";
+	CtrlGuide[8] = (char*)"¤Ó A  ¤Ó¤Ó S  ¤Ó¤Ó D  ¤Ó";
+	CtrlGuide[9] = (char*)"¦¦¤Ñ¤Ñ¦¥¦¦¤Ñ¤Ñ¦¥¦¦¤Ñ¤Ñ¦¥";
+	CtrlGuide[10] = (char*)"        ¦£¤Ñ¤Ñ¦¤";
+	CtrlGuide[11] = (char*)"        ¤Ó ¡ã ¤Ó";
+	CtrlGuide[12] = (char*)"        ¦¦¤Ñ¤Ñ¦¥";
+	CtrlGuide[13] = (char*)"¦£¤Ñ¤Ñ¦¤¦£¤Ñ¤Ñ¦¤¦£¤Ñ¤Ñ¦¤";
+	CtrlGuide[14] = (char*)"¤Ó ¢¸ ¤Ó¤Ó ¡å ¤Ó¤Ó ¢º ¤Ó";
+	CtrlGuide[15] = (char*)"¦¦¤Ñ¤Ñ¦¥¦¦¤Ñ¤Ñ¦¥¦¦¤Ñ¤Ñ¦¥";
+	CtrlGuide[16] = (char*)"¦£¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¦¤";
+	CtrlGuide[17] = (char*)"¤Ó       SPACE        ¤Ó";
+	CtrlGuide[18] = (char*)"¦¦¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¤Ñ¦¥";
+	CtrlGuide[19] = (char*)"¦£¤Ñ¤Ñ¦¤";
+	CtrlGuide[20] = (char*)"¤Ó R  ¤Ó";
+	CtrlGuide[21] = (char*)"¦¦¤Ñ¤Ñ¦¥";
+	CtrlGuide[22] = (char*)"¦£¤Ñ¤Ñ¤Ñ¤Ñ¦¤";
+	CtrlGuide[23] = (char*)"¤Ó  TAB   ¤Ó";
+	CtrlGuide[24] = (char*)"¦¦¤Ñ¤Ñ¤Ñ¤Ñ¦¥";
+	CtrlGuide[25] = (char*)"¿Ê";
+	CtrlGuide[26] = (char*)"*";
+	CtrlGuide[27] = (char*)"ÀÚÆÇÀÇ W, A, S, D Å°´Â";
+	CtrlGuide[28] = (char*)"°¢°¢ »ó, ÇÏ, ÁÂ, ¿ì·Î ÀÌµ¿ÇÕ´Ï´Ù";
+	CtrlGuide[29] = (char*)"¹æÇâÅ°·Î ÃÑ±¸ÀÇ ¹æÇâÀ» Á¶ÀÛÇÕ´Ï´Ù";
+	CtrlGuide[30] = (char*)"À§,¾Æ·¡·Î´Â »óÇÏ°¢À»,";
+	CtrlGuide[31] = (char*)"ÁÂ,¿ì´Â ¹æÇâÀ» Á¶ÀýÇÕ´Ï´Ù";
+	CtrlGuide[32] = (char*)"½ºÆäÀÌ½º ¹Ù¸¦ ´©¸£¸é";
+	CtrlGuide[33] = (char*)"ÃÑ±¸ÀÇ ¹æÇâÀ¸·Î ÃÑ¾ËÀÌ ¹ß»çµË´Ï´Ù";
+	CtrlGuide[34] = (char*)"ÀûÀ» Ã³Ä¡ÇØ Á¡¼ö¸¦ È¹µæÇÏ°í ½ºÅ³ °ÔÀÌÁö¸¦ Ã¤¿ï ¼ö ÀÖ½À´Ï´Ù";
+	CtrlGuide[35] = (char*)"ÇÇ°Ý ¾øÀÌ ¿¬¼ÓÃ³Ä¡½Ã ÄÞº¸ Á¡¼ö¿Í ´õ ¸¹Àº °ÔÀÌÁö¸¦ ¾ò½À´Ï´Ù";
+	CtrlGuide[36] = (char*)"½ºÅ³ °ÔÀÌÁö¸¦ ²Ë Ã¤¿ö °­·ÂÇÑ ÇÊ»ì±â¸¦ »ç¿ëÇØ º¸¼¼¿ä !";
+	CtrlGuide[37] = (char*)"°ÔÀÓÁß TAB Å°¸¦ ´©¸£¸é ¸Þ´ºÃ¢À» ºÒ·¯¿É´Ï´Ù";	
+	CtrlGuide[38] = (char*)"[ R Å°¸¦ ´©¸£¸é ¸Þ´º·Î µ¹¾Æ°©´Ï´Ù ]";
+
+	ItemTuto[0]  = (char*)"¾ÆÀÌÅÛ Æ©Åä¸®¾ó";
+	ItemTuto[1]  = (char*)"¡ÐSTATIC";
+	ItemTuto[2]  = (char*)"£¯BULLET";
+	ItemTuto[3]  = (char*)"¡ÓMOLOTOV";
+	ItemTuto[4]  = (char*)"¡ú!!!!!!!";
+	ItemTuto[5]  = (char*)"¡ø¢Ç¢Ç¡ù";
+	ItemTuto[6]  = (char*)"KF94MASK";
+	ItemTuto[7]  = (char*)" ¡ÌBUDDY";
+	ItemTuto[8]  = (char*)"dl BUDDY";
+	ItemTuto[9]  = (char*)"ÀüÅõ Áß ÀÏÁ¤ ½Ã°£¸¶´Ù ¹Ù±ùÂÊ ·£´ýÇÑ À§Ä¡¿¡¼­ ¾ÆÀÌÅÛÀÌ »ý¼ºµË´Ï´Ù";
+	ItemTuto[10] = (char*)"¾ÆÀÌÅÛÀº Áß¾Ó ºÎ±ÙÀ» °¡·ÎÁú·¯ ÀÌµ¿ÇÏ¸ç È¹µæ½Ã °íÀ¯È¿°ú°¡ Àû¿ëµË´Ï´Ù";
+	ItemTuto[11] = (char*)"Á¤Àü±â Åº : 10ÃÊ µ¿¾È ¹ß»çµÇ´Â ÅºÀÌ Àû ÃßÀû ±â´ÉÀ» °¡Áý´Ï´Ù";
+	ItemTuto[12] = (char*)"È­¿°º´ : ÇÃ·¹ÀÌ¾î Áß½É 3x3ÀÇ ÇÊµå À§ Åõ»çÃ¼¿Í ÀûÀ» ÆÄ±«ÇÕ´Ï´Ù";
+	ItemTuto[13] = (char*)"º¸½º´Â ÆÄ±«µÇÁö ¾Ê°í µ¥¹ÌÁö¸¦ ÀÔ½À´Ï´Ù";
+	ItemTuto[14] = (char*)"¸¶½ºÅ© : ÇÃ·¹ÀÌ¾î HP¸¦ ´ë½ÅÇØ ÆÄ±«µÇ´Â 1°ãÀÇ º¸È£¸·À» ¾ò½À´Ï´Ù";
+	ItemTuto[15] = (char*)"º¸È£¸· ÆÄ±«½Ã ÇÇ°Ý¶§¿Í ¸¶Âù°¡Áö·Î 1ÃÊ°£ ¹«Àû»óÅÂ°¡ µË´Ï´Ù";
+	ItemTuto[16] = (char*)"¹öµð¹öµð : 15ÃÊ µ¿¾È ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿ ¼Óµµ°¡ Áõ°¡ÇÕ´Ï´Ù";
+	ItemTuto[17] = (char*)"[ R ] Å°¸¦ ´­·¯ È®ÀÎ ÈÄ °ÔÀÓ ½ÃÀÛ";
 }
 
 void GuideManager::Update()
@@ -105,67 +120,99 @@ void GuideManager::Update()
 	else if (Check)
 		Count--;
 
-
-
 	if (Count >= 50)
 		Check = true;
 	
 	if (Count <= 0)
 		Check = false;
-
 }
 
-void GuideManager::Render()
+void GuideManager::Render(int _Option)
 {
-	for (int i = 0; i < 65; ++i)
+	for (int i = 0; i < 40; ++i)
 	{
-		if (i < 40)
-			CursorManager::GetInstance()->WriteBuffer(40.0f, 5.0f + i, GuideScene[i]);
-		else if (i < 44)
-			CursorManager::GetInstance()->WriteBuffer(80.0f - strlen("/ /__/ _ |/ _ |/  __/ __/ _ |/ / / (_ // // / / _  / -_)") / 2, 6.0f + i - 40, GuideScene[i], 14);
-		else if (i < 50)
-			CursorManager::GetInstance()->WriteBuffer(44.0f, 12.0f + i - 44 , GuideScene[i]);
-		else if (i < 56)
-			CursorManager::GetInstance()->WriteBuffer(44.0f, 20.0f + i - 50 , GuideScene[i]);
-		else if (i < 59)
-			CursorManager::GetInstance()->WriteBuffer(44.0f, 28.0f + i - 56 , GuideScene[i]);
-		else if (i < 62)
-			CursorManager::GetInstance()->WriteBuffer(48.0f, 33.0f + i - 59 , GuideScene[i]);
-		else
-			CursorManager::GetInstance()->WriteBuffer(46.0f, 38.0f + i - 62 , GuideScene[i]);
+		CursorManager::GetInstance()->WriteBuffer(40.0f, 5.0f + i, Border[i]);
 	}
+	
 
-	CursorManager::GetInstance()->WriteBuffer(74.0f, 12.0f + Count * 0.1f , GuideScene[65], 14);
+	switch (_Option)
+	{
+	case 1:
+		for (int i = 0; i < 25; ++i)
+		{
+			if (i < 4)
+				CursorManager::GetInstance()->WriteBuffer(80.0f - strlen("/ /__/ _ |/ _ |/  __/ __/ _ |/ / / (_ // // / / _  / -_)") / 2, 6.0f + i, CtrlGuide[i], 14);
+			else if (i < 10)
+				CursorManager::GetInstance()->WriteBuffer(44.0f, 12.0f + i - 4, CtrlGuide[i]);
+			else if (i < 16)
+				CursorManager::GetInstance()->WriteBuffer(44.0f, 20.0f + i - 10, CtrlGuide[i]);
+			else if (i < 19)
+				CursorManager::GetInstance()->WriteBuffer(44.0f, 28.0f + i - 16, CtrlGuide[i]);
+			else if (i < 22)
+				CursorManager::GetInstance()->WriteBuffer(48.0f, 33.0f + i - 19, CtrlGuide[i]);
+			else
+				CursorManager::GetInstance()->WriteBuffer(46.0f, 38.0f + i - 22, CtrlGuide[i]);
+		}
 
-	CursorManager::GetInstance()->WriteBuffer(74.0f, 23.0f, GuideScene[65], 14);
+		CursorManager::GetInstance()->WriteBuffer(74.0f, 12.0f + Count * 0.1f, CtrlGuide[25], 14);
 
-	if (Count < 25)
-		CursorManager::GetInstance()->WriteBuffer(77.0f, 23.0f - Count * 0.01, GuideScene[66], 10);
-	else if (Count >= 25)
-		CursorManager::GetInstance()->WriteBuffer(77.0f - Count * 0.03, 22.0f, GuideScene[66], 10);
+		CursorManager::GetInstance()->WriteBuffer(74.0f, 23.0f, CtrlGuide[25], 14);
 
-	CursorManager::GetInstance()->WriteBuffer(74.0f, 28.0f, GuideScene[65], 14);
-	CursorManager::GetInstance()->WriteBuffer(77.0f, 28.0f, GuideScene[66], 10);
-	if (!Check)
-		CursorManager::GetInstance()->WriteBuffer(77.0f + Count * 0.8, 28.0f, GuideScene[66], 11);
+		if (Count < 25)
+			CursorManager::GetInstance()->WriteBuffer(77.0f, 23.0f - Count * 0.01, CtrlGuide[26], 10);
+		else if (Count >= 25)
+			CursorManager::GetInstance()->WriteBuffer(77.0f - Count * 0.03, 22.0f, CtrlGuide[26], 10);
 
-	CursorManager::GetInstance()->WriteBuffer(86.0f, 14.0f, GuideScene[67], 10);
-	CursorManager::GetInstance()->WriteBuffer(82.0f, 15.0f, GuideScene[68], 10);
+		CursorManager::GetInstance()->WriteBuffer(74.0f, 28.0f, CtrlGuide[25], 14);
+		CursorManager::GetInstance()->WriteBuffer(77.0f, 28.0f, CtrlGuide[26], 10);
+		if (!Check)
+			CursorManager::GetInstance()->WriteBuffer(77.0f + Count * 0.8, 28.0f, CtrlGuide[26], 11);
 
-	CursorManager::GetInstance()->WriteBuffer(82.0f, 22.0f, GuideScene[69], 10);
-	CursorManager::GetInstance()->WriteBuffer(88.0f, 23.0f, GuideScene[70], 10);
-	CursorManager::GetInstance()->WriteBuffer(86.0f, 24.0f, GuideScene[71], 10);
+		CursorManager::GetInstance()->WriteBuffer(86.0f, 14.0f, CtrlGuide[27], 10);
+		CursorManager::GetInstance()->WriteBuffer(82.0f, 15.0f, CtrlGuide[28], 10);
 
-	CursorManager::GetInstance()->WriteBuffer(88.0f, 29.0f, GuideScene[72], 10);
-	CursorManager::GetInstance()->WriteBuffer(82.0f, 30.0f, GuideScene[73], 10);
+		CursorManager::GetInstance()->WriteBuffer(82.0f, 22.0f, CtrlGuide[29], 10);
+		CursorManager::GetInstance()->WriteBuffer(88.0f, 23.0f, CtrlGuide[30], 10);
+		CursorManager::GetInstance()->WriteBuffer(86.0f, 24.0f, CtrlGuide[31], 10);
 
-	CursorManager::GetInstance()->WriteBuffer(58.0f, 33.0f, GuideScene[74], 10);
-	CursorManager::GetInstance()->WriteBuffer(58.0f, 34.0f, GuideScene[75], 10);
-	CursorManager::GetInstance()->WriteBuffer(60.0f, 35.0f, GuideScene[76], 10);
+		CursorManager::GetInstance()->WriteBuffer(88.0f, 29.0f, CtrlGuide[32], 10);
+		CursorManager::GetInstance()->WriteBuffer(82.0f, 30.0f, CtrlGuide[33], 10);
 
-	CursorManager::GetInstance()->WriteBuffer(66.0f, 39.0f, GuideScene[77], 10);
+		CursorManager::GetInstance()->WriteBuffer(58.0f, 33.0f, CtrlGuide[34], 10);
+		CursorManager::GetInstance()->WriteBuffer(58.0f, 34.0f, CtrlGuide[35], 10);
+		CursorManager::GetInstance()->WriteBuffer(60.0f, 35.0f, CtrlGuide[36], 10);
 
-	CursorManager::GetInstance()->WriteBuffer(66.0f, 42.0f, GuideScene[78], 14);
+		CursorManager::GetInstance()->WriteBuffer(66.0f, 39.0f, CtrlGuide[37], 10);
+
+		CursorManager::GetInstance()->WriteBuffer(66.0f, 42.0f, CtrlGuide[38], 14);
+		break;
+	case 2:
+		CursorManager::GetInstance()->WriteBuffer(80 - strlen("¾ÆÀÌÅÛ Æ©Åä¸®¾ó") / 2, 8, ItemTuto[0], 10);
+		CursorManager::GetInstance()->WriteBuffer(80 - strlen(ItemTuto[9]) / 2, 12, ItemTuto[9]);
+		CursorManager::GetInstance()->WriteBuffer(80 - strlen(ItemTuto[10]) / 2, 13, ItemTuto[10]);
+
+		CursorManager::GetInstance()->WriteBuffer(44, 18, ItemTuto[1], 14);
+		CursorManager::GetInstance()->WriteBuffer(44, 19, ItemTuto[2], 14);
+		CursorManager::GetInstance()->WriteBuffer(54, 18, ItemTuto[11], 14);
+	
+		CursorManager::GetInstance()->WriteBuffer(44, 24, ItemTuto[3], 12);
+		CursorManager::GetInstance()->WriteBuffer(44, 25, ItemTuto[4], 12);
+		CursorManager::GetInstance()->WriteBuffer(54, 24, ItemTuto[12], 12);
+		CursorManager::GetInstance()->WriteBuffer(54, 25, ItemTuto[13], 12);
+	
+		CursorManager::GetInstance()->WriteBuffer(44, 30, ItemTuto[5], 9);
+		CursorManager::GetInstance()->WriteBuffer(44, 31, ItemTuto[6], 9);
+		CursorManager::GetInstance()->WriteBuffer(54, 30, ItemTuto[14], 9);
+		CursorManager::GetInstance()->WriteBuffer(54, 31, ItemTuto[15], 9);
+	
+		CursorManager::GetInstance()->WriteBuffer(44, 36, ItemTuto[7], 11);
+		CursorManager::GetInstance()->WriteBuffer(44, 37, ItemTuto[8], 11);
+		CursorManager::GetInstance()->WriteBuffer(54, 36, ItemTuto[16], 11);
+
+		CursorManager::GetInstance()->WriteBuffer(80 - strlen(ItemTuto[17]) / 2, 42, ItemTuto[17]);
+		break;
+	}
+	
 }
 
 void GuideManager::Release()

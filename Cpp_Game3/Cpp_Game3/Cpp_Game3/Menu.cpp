@@ -296,7 +296,7 @@ void Menu::Render()
 		break;
 	}
 	if (Guide)
-		GuideManager::GetInstance()->Render();
+		GuideManager::GetInstance()->Render(1);
 }
 
 void Menu::Release()

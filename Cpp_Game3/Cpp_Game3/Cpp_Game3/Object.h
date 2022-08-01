@@ -11,7 +11,7 @@ protected:
 	float Speed;
 public:
 	virtual void Start()PURE;
-	virtual int Update()PURE;
+	virtual int Update(bool _Pause)PURE;
 	virtual void Render()PURE;
 	virtual void Release()PURE;
 public:

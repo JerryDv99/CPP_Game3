@@ -37,6 +37,7 @@ void SceneManager::SetScene(SCENEID _SceneID)
 	
 	case SCENEID::STORY:
 		SceneState = new Story;
+		break;
 	
 	case SCENEID::STAGE:
 		SceneState = new Stage;
@@ -64,7 +65,7 @@ void SceneManager::Update()
 
 void SceneManager::Render()
 {
-	SceneState->Render();
+	SceneState->Render(); 
 }
 
 void SceneManager::Release()
