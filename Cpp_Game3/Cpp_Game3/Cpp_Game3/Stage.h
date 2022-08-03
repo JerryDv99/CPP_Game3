@@ -16,9 +16,10 @@ private:
 	char* PlayerUI[64];
 	int Life;
 	int Score;
-	float Combo;
+	int Kill;
+	int Combo;
 	int ComboGauge;
-
+	int Hit;
 public:
 	Stage();
 	virtual ~Stage();

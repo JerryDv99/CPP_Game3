@@ -4,7 +4,7 @@
 class Enemy : public Object
 {
 private:
-	ULONGLONG Time;
+	ULONGLONG eTime;
 	int Count;
 	int Rand;
 public:

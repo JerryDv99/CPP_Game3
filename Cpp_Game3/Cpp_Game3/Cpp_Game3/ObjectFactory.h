@@ -55,22 +55,4 @@ public:
 		
 		return pObject;
 	}
-
-	static Object* CreateItem()
-	{
-		Object* pObject = new Item;
-		pObject->Start();
-		
-		return pObject;
-	}
-
-	static Object* CreateItem(Vector3 _Position)
-	{
-		Object* pObject = new Item;
-
-		pObject->Start();
-		pObject->SetPosition(_Position);
-
-		return pObject;
-	}
 };

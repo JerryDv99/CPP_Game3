@@ -5,6 +5,7 @@ class Bullet : public Object
 {
 private:
 	int Index;
+	ULONGLONG T;
 public:
 	virtual void Start()override;
 	virtual int  Update(bool _Pause)override;
@@ -12,6 +13,8 @@ public:
 	virtual void Release()override;
 public:
 	void SetIndex(int _Index) { Index = _Index; }
+	int GetIndex() { return Index; }
+	void SetT(ULONGLONG _T) { T = _T; }
 public:
 	Bullet();
 	virtual ~Bullet();

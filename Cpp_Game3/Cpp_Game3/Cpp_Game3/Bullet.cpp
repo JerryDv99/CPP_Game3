@@ -2,7 +2,7 @@
 #include "CursorManager.h"
 #include "MathManager.h"
 
-Bullet::Bullet()
+Bullet::Bullet() : T(0)
 {
 }
 
@@ -34,7 +34,14 @@ int Bullet::Update(bool _Pause)
 		case 1:
 		{
 			Info.Direction = MathManager::GetDirection(Info.Position, Target->GetPosition());
-			Info.Position += Info.Direction * (Speed * 0.5f);
+			Info.Position += Info.Direction * (Speed * 1.5f);
+			if (T + 10000 < GetTickCount64())
+				return 1;
+			break;
+		}
+		case 2:
+		{
+			Info.Position += Info.Direction * Speed;
 			break;
 		}
 		}
@@ -56,6 +63,9 @@ void Bullet::Render()
 		break;
 	case 1:
 		CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"*", 14);
+		break;	
+	case 2:
+		CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"*", 7);
 		break;
 	}
 }

@@ -15,13 +15,13 @@ void Enemy::Start()
 {
 	Info.Position = Vector3(0.0f, 0.0f);
 	Info.Rotation= Vector3(0.0f, 0.0f);
-	Info.Scale = Vector3(0.0f, 0.0f);
+	Info.Scale = Vector3(2.0f, 1.0f);
 
 	Target = nullptr;
 	Count = 0;
 	Speed = 1.0f;
 
-	Time = GetTickCount64();
+	eTime = GetTickCount64();
 	Rand = rand() % 4;
 	Option = rand() % 8;
 
@@ -64,19 +64,10 @@ int Enemy::Update(bool _Pause)
 {
 	Info.Direction = MathManager::GetDirection(Info.Position, Target->GetPosition());
 	Info.Position += Info.Direction * (Speed * 0.05f);
-	if (Time + 400 < GetTickCount64())
-	{
-		Count++;
-
-		if (Count >= 5)
-		{
-			Count = 0;
-			ObjectManager::GetInstance()->CreateObject(1, Info.Position);
-		}
-		else
-			ObjectManager::GetInstance()->CreateObject(0, Info.Position);
-
-		Time = GetTickCount64();
+	if (eTime + 1500 < GetTickCount64())
+	{		
+		ObjectManager::GetInstance()->CreateEBullet(2, Info.Position);
+		eTime = GetTickCount64();
 	}
 
 	return 0;

@@ -15,7 +15,7 @@ public:
 	virtual void Render()PURE;
 	virtual void Release()PURE;
 public:
-	Transform GetTrnasform() const { return Info; }
+	Transform GetTransform() const { return Info; }
 	
 	Vector3 GetPosition() const { return Info.Position; }
 	void SetPosition(Vector3 _Position) { Info.Position = _Position; }
@@ -24,6 +24,8 @@ public:
 	void SetDirection(Vector3 _Direction) { Info.Direction = _Direction; }
 	void SetDirection(float _x, float _y) { Info.Direction = Vector3(_x, _y); }
 	void SetTarget(Object* _Target) { Target = _Target; }
+	void SetOption(int _Option) { Option = _Option; }
+	int GetOption() { return Option; }
 public:
 	Object();
 	virtual ~Object();

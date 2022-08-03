@@ -25,31 +25,59 @@ int Player::Update(bool _Pause)
 {
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
 
-	if (dwKey & KEY_UP)
-		if(Info.Position.y > 0)
-			Info.Position.y--;
+	if (!Buddy)
+	{
+		if (dwKey & KEY_UP)
+			if (Info.Position.y > 1)
+				Info.Position.y--;
 
-	if (dwKey & KEY_DOWN)
-		if (Info.Position.y < 49)
-			Info.Position.y++;
+		if (dwKey & KEY_DOWN)
+			if (Info.Position.y < 48)
+				Info.Position.y++;
 
-	if (dwKey & KEY_LEFT)
-		if (Info.Position.x > 0)
-			Info.Position.x -= 2;
+		if (dwKey & KEY_LEFT)
+			if (Info.Position.x > 2)
+				Info.Position.x -= 2;
 
-	if (dwKey & KEY_RIGHT)
-		if (Info.Position.x < 118)
-			Info.Position.x += 2;
+		if (dwKey & KEY_RIGHT)
+			if (Info.Position.x < 116)
+				Info.Position.x += 2;
 
-	if (dwKey & KEY_SPACE)
-		return 1;
+		if (dwKey & KEY_SPACE)
+			return 1;
+	}
+	
+	else if (Buddy)
+	{
+		if (dwKey & KEY_UP)
+			if (Info.Position.y > 2)
+				Info.Position.y -= 1.5;
+
+		if (dwKey & KEY_DOWN)
+			if (Info.Position.y < 48)
+				Info.Position.y += 1.5;
+
+		if (dwKey & KEY_LEFT)
+			if (Info.Position.x >= 4.5)
+				Info.Position.x -= 3;
+
+		if (dwKey & KEY_RIGHT)
+			if (Info.Position.x <= 114.5)
+				Info.Position.x += 3;
+
+		if (dwKey & KEY_SPACE)
+			return 1;
+	}
 
 	return 0;
 }
 
 void Player::Render()
 {
-	CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"¿Ê", 14);
+	if (!Shield)
+		CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"¿Ê", 14);
+	else if (Shield)
+		CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"Èª", 9);
 }
 
 void Player::Release()
