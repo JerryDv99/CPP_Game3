@@ -11,7 +11,8 @@
 
 ObjectManager* ObjectManager::Instance = nullptr;
 
-ObjectManager::ObjectManager() 
+
+ObjectManager::ObjectManager()
 {
 	pPlayer = nullptr;
 	pCursor = nullptr;
@@ -30,6 +31,7 @@ ObjectManager::ObjectManager()
 	FnB = 0;
 	Score = 0;
 	Kill = 0;
+	HP = 0;
 	for (int i = 0; i < 128; ++i)
 		pBullet[i] = nullptr;
 	for (int i = 0; i < 128; ++i)
@@ -166,6 +168,7 @@ void ObjectManager::Start()
 	pPlayer = ObjectFactory::CreatePlayer();
 	pCursor = ObjectFactory::CreateCursor();
 	Time = GetTickCount64();
+	HP = 5;
 }
 
 int ObjectManager::Update()
@@ -348,7 +351,7 @@ int ObjectManager::Update()
 				}
 				else if (!Shield)
 				{
-					((Player*)pPlayer)->HPDown();
+					HP--;
 					SA = true;
 					SuperArmor = GetTickCount64();
 					return 1;

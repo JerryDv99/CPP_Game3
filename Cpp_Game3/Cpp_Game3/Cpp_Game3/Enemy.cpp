@@ -79,12 +79,16 @@ void Enemy::Render()
 	{
 	case 0:
 		CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"”î", 12);
+		break;
 	case 1:
 		CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"šu", 12);
+		break;
 	case 2:
 		CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"Œà", 12);
+		break;
 	case 3:
 		CursorManager::GetInstance()->WriteBuffer(Info.Position, (char*)"‚Q", 12);
+		break;
 	}
 }
 

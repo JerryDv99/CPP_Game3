@@ -2,7 +2,7 @@
 #include "InputManager.h"
 #include "CursorManager.h"
 
-Player::Player() : HP(0)
+Player::Player()
 {
 }
 
@@ -18,7 +18,6 @@ void Player::Start()
 
 	Target = nullptr;
 	Speed = 1.0f;
-	HP = 5;
 }
 
 int Player::Update(bool _Pause)

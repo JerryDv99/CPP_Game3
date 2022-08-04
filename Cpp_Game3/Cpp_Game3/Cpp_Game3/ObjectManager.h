@@ -35,6 +35,7 @@ private:
 	int FnB;
 	int Score;
 	int Kill;
+	int HP;
 public:
 	void CreateObject(int _StateIndex, Vector3 _Position);
 	void CreateEBullet(int _StateIndex, Vector3 _Position);
@@ -45,6 +46,7 @@ public:
 	void SetPause(bool _Pause) { Pause = _Pause; }
 	int GetScore() { return Score; }
 	int GetKill() { return Kill; }
+	int GetHP() { return HP; }
 private:
 	ObjectManager();
 public:
