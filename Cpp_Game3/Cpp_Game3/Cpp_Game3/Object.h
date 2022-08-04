@@ -26,6 +26,7 @@ public:
 	void SetTarget(Object* _Target) { Target = _Target; }
 	void SetOption(int _Option) { Option = _Option; }
 	int GetOption() { return Option; }
+	Object* GetTarget() { return Target; }
 public:
 	Object();
 	virtual ~Object();

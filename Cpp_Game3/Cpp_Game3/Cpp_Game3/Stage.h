@@ -9,8 +9,9 @@ public:
 	virtual void Render()override;
 	virtual void Release()override;
 private:
-	bool Tuto;
+	bool Menu;
 	bool ITuto;
+	bool Guide;
 
 	char* ComboUI[64];
 	char* PlayerUI[64];
@@ -20,6 +21,7 @@ private:
 	int Combo;
 	int ComboGauge;
 	int Hit;
+	int Cursor;
 public:
 	Stage();
 	virtual ~Stage();

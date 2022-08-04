@@ -18,7 +18,6 @@ private:
 	Object* eBullet[128];
 	Object* pPlayer;
 	Object* pEnemy[32];
-	Object* pCursor;
 	Object* pItem;
 	ULONGLONG Time;
 	ULONGLONG iTime;
@@ -31,17 +30,16 @@ private:
 	bool Buddy;
 	bool Hit;
 	bool SA;
-	int Angle;
-	int FnB;
 	int Score;
 	int Kill;
 	int HP;
 public:
-	void CreateObject(int _StateIndex, Vector3 _Position);
+	void CreateObject(int _StateIndex, Vector3 _Position, DWORD _dwKey);
 	void CreateEBullet(int _StateIndex, Vector3 _Position);
 	void Start();
 	int Update();
 	void Render();
+	void SoftRelease();
 	void Release();
 	void SetPause(bool _Pause) { Pause = _Pause; }
 	int GetScore() { return Score; }

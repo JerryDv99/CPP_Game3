@@ -12,14 +12,6 @@ public:
 		return pObject;
 	}
 	
-	static Object* CreateCursor()
-	{
-		Object* pObject = new Cursor;
-		pObject->Start();
-
-		return pObject;
-	}
-
 	static Object* CreateBullet()
 	{
 		Object* pObject = new Bullet;

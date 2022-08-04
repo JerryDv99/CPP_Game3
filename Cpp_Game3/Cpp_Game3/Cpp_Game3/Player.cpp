@@ -24,7 +24,7 @@ int Player::Update(bool _Pause)
 {
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
 
-	if (!Buddy)
+	if (!Buddy && !_Pause)
 	{
 		if (dwKey & KEY_UP)
 			if (Info.Position.y > 1)
@@ -46,7 +46,7 @@ int Player::Update(bool _Pause)
 			return 1;
 	}
 	
-	else if (Buddy)
+	else if (Buddy && !_Pause)
 	{
 		if (dwKey & KEY_UP)
 			if (Info.Position.y > 2)

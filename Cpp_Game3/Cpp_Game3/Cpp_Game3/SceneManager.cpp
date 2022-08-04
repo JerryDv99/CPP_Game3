@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "Story.h"
 #include "Stage.h"
+#include "BossScene.h"
 #include "BossStage.h"
 #include "Ending.h"
 
@@ -43,7 +44,11 @@ void SceneManager::SetScene(SCENEID _SceneID)
 		SceneState = new Stage;
 		break;
 	
-	case SCENEID::BOSS:
+	case SCENEID::BOSSSN:
+		SceneState = new BossScene;
+		break;
+
+	case SCENEID::BOSSSTG:
 		SceneState = new BossStage;
 		break;
 

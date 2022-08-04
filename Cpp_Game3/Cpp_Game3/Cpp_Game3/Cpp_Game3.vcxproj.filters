@@ -64,9 +64,6 @@
     <Filter Include="소스 파일\2.Scene\2.Menu">
       <UniqueIdentifier>{72b28938-1249-43b0-a0db-c732ce13badd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\1.Object\Cursor">
-      <UniqueIdentifier>{95217877-eb6a-4e8b-b133-db004e034cf4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\9.Manager\UIManager">
       <UniqueIdentifier>{8055dd69-a682-413c-8bc8-6321585c9cdc}</UniqueIdentifier>
     </Filter>
@@ -82,11 +79,17 @@
     <Filter Include="소스 파일\2.Scene\3.Story">
       <UniqueIdentifier>{c33a33ad-fafb-4a64-a959-5f01013bc150}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\2.Scene\04.Stage">
-      <UniqueIdentifier>{573410ba-7c5d-4c0c-8b92-1531c579f0be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\1.Object\Item">
       <UniqueIdentifier>{d41c9e49-9c89-483e-8f71-07572e57ee5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Scene\4.Stage">
+      <UniqueIdentifier>{573410ba-7c5d-4c0c-8b92-1531c579f0be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Scene\5.BossScene">
+      <UniqueIdentifier>{5d1ea267-182e-4463-b53e-468f5e523721}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Object\Kirby">
+      <UniqueIdentifier>{eea1cfba-9791-43f0-8fdc-f3d1f8697eb3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -127,16 +130,13 @@
       <Filter>소스 파일\2.Scene\1.Logo</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp">
-      <Filter>소스 파일\2.Scene\04.Stage</Filter>
+      <Filter>소스 파일\2.Scene\4.Stage</Filter>
     </ClCompile>
     <ClCompile Include="Ending.cpp">
       <Filter>소스 파일\2.Scene\Ending</Filter>
     </ClCompile>
     <ClCompile Include="BossStage.cpp">
       <Filter>소스 파일\2.Scene\BossStage</Filter>
-    </ClCompile>
-    <ClCompile Include="Cursor.cpp">
-      <Filter>소스 파일\1.Object\Cursor</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>소스 파일\2.Scene\2.Menu</Filter>
@@ -152,6 +152,12 @@
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>소스 파일\1.Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="BossScene.cpp">
+      <Filter>소스 파일\2.Scene\5.BossScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Kirby.cpp">
+      <Filter>소스 파일\1.Object\Kirby</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,16 +216,13 @@
       <Filter>소스 파일\2.Scene\1.Logo</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h">
-      <Filter>소스 파일\2.Scene\04.Stage</Filter>
+      <Filter>소스 파일\2.Scene\4.Stage</Filter>
     </ClInclude>
     <ClInclude Include="Ending.h">
       <Filter>소스 파일\2.Scene\Ending</Filter>
     </ClInclude>
     <ClInclude Include="BossStage.h">
       <Filter>소스 파일\2.Scene\BossStage</Filter>
-    </ClInclude>
-    <ClInclude Include="Cursor.h">
-      <Filter>소스 파일\1.Object\Cursor</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>소스 파일\2.Scene\2.Menu</Filter>
@@ -235,6 +238,12 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>소스 파일\1.Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BossScene.h">
+      <Filter>소스 파일\2.Scene\5.BossScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Kirby.h">
+      <Filter>소스 파일\1.Object\Kirby</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

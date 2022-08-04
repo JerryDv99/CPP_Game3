@@ -63,12 +63,15 @@ void Enemy::Start()
 int Enemy::Update(bool _Pause)
 {
 	Info.Direction = MathManager::GetDirection(Info.Position, Target->GetPosition());
-	Info.Position += Info.Direction * (Speed * 0.05f);
-	if (eTime + 1500 < GetTickCount64())
+	if (!_Pause)
+		Info.Position += Info.Direction * (Speed * 0.05f);
+	if (eTime + 1500 < GetTickCount64() && !_Pause)
 	{		
 		ObjectManager::GetInstance()->CreateEBullet(2, Info.Position);
 		eTime = GetTickCount64();
 	}
+	if (_Pause)
+		eTime = GetTickCount64();
 
 	return 0;
 }

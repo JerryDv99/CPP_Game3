@@ -29,12 +29,12 @@ int Bullet::Update(bool _Pause)
 		switch (Index)
 		{
 		case 0:
-			Info.Position += Info.Direction * Speed;
+			Info.Position += Info.Direction * (Speed * 1.2f);
 			break;
 		case 1:
 		{
 			Info.Direction = MathManager::GetDirection(Info.Position, Target->GetPosition());
-			Info.Position += Info.Direction * (Speed * 1.5f);
+			Info.Position += Info.Direction * Speed;
 			if (T + 10000 < GetTickCount64())
 				return 1;
 			break;

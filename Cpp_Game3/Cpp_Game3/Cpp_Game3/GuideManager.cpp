@@ -89,7 +89,7 @@ void GuideManager::Start()
 	CtrlGuide[33] = (char*)"총구의 방향으로 총알이 발사됩니다";
 	CtrlGuide[34] = (char*)"적을 처치해 점수를 획득하고 스킬 게이지를 채울 수 있습니다";
 	CtrlGuide[35] = (char*)"피격 없이 연속처치시 콤보 점수와 더 많은 게이지를 얻습니다";
-	CtrlGuide[36] = (char*)"스킬 게이지를 꽉 채워 강력한 필살기를 사용해 보세요 !";
+	CtrlGuide[36] = (char*)"스킬 게이지를 꽉 채워 강력한 친구를 불러보세요 !";
 	CtrlGuide[37] = (char*)"게임중 TAB 키를 누르면 메뉴창을 불러옵니다";	
 	CtrlGuide[38] = (char*)"[ R 키를 누르면 메뉴로 돌아갑니다 ]";
 
@@ -180,7 +180,7 @@ void GuideManager::Render(int _Option)
 
 		CursorManager::GetInstance()->WriteBuffer(58.0f, 33.0f, CtrlGuide[34], 10);
 		CursorManager::GetInstance()->WriteBuffer(58.0f, 34.0f, CtrlGuide[35], 10);
-		CursorManager::GetInstance()->WriteBuffer(60.0f, 35.0f, CtrlGuide[36], 10);
+		CursorManager::GetInstance()->WriteBuffer(62.0f, 35.0f, CtrlGuide[36], 10);
 
 		CursorManager::GetInstance()->WriteBuffer(66.0f, 39.0f, CtrlGuide[37], 10);
 

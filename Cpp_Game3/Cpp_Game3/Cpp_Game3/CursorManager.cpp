@@ -45,19 +45,6 @@ void CursorManager::WriteBuffer(float _x, float _y, char* _str, int _Color)
 	WriteFile(HBuffer[BufferIndex], _str, (DWORD)strlen(_str), &dw, NULL);
 }
 
-void CursorManager::WriteBuffer(float _x, float _y, int _i, int _Color)
-{
-	COORD CursorPosition = { (SHORT)_x, (SHORT)_y };
-
-	SetConsoleCursorPosition(HBuffer[BufferIndex], CursorPosition);
-
-	SetColor(_Color);
-	
-	DWORD dw;
-
-	WriteFile(HBuffer[BufferIndex], (int*)_i, (DWORD)sizeof(_i), &dw, NULL);
-}
-
 void CursorManager::WriteBuffer(Vector3 _Position, char* _str, int _Color)
 {
 	COORD CursorPosition = { (SHORT)_Position.x, (SHORT)_Position.y };
@@ -69,6 +56,40 @@ void CursorManager::WriteBuffer(Vector3 _Position, char* _str, int _Color)
 	DWORD dw;
 
 	WriteFile(HBuffer[BufferIndex], _str, (DWORD)strlen(_str), &dw, NULL);
+}
+
+void CursorManager::WriteBuffer(float _x, float _y, int _Value, int _Color)
+{
+	COORD CursorPosition = { (SHORT)_x, (SHORT)_y };
+
+	SetConsoleCursorPosition(HBuffer[BufferIndex], CursorPosition);
+
+	SetColor(_Color);
+	
+	DWORD dw;
+
+	char* Buffer = new char[sizeof(int)];
+
+	_itoa(_Value, Buffer, 10);
+
+	WriteFile(HBuffer[BufferIndex], Buffer, (DWORD)strlen(Buffer), &dw, NULL);
+}
+
+void CursorManager::WriteBuffer(Vector3 _Position, int _Value, int _Color)
+{
+	COORD CursorPosition = { (SHORT)_Position.x, (SHORT)_Position.y };
+
+	SetConsoleCursorPosition(HBuffer[BufferIndex], CursorPosition);
+
+	SetColor(_Color);
+
+	DWORD dw;
+
+	char* Buffer = new char[sizeof(int)];
+
+	_itoa(_Value, Buffer, 10);
+
+	WriteFile(HBuffer[BufferIndex], Buffer, (DWORD)strlen(Buffer), &dw, NULL);
 }
 
 void CursorManager::FlippingBuffer()

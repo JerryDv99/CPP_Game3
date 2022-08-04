@@ -2,11 +2,11 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
-#include "Cursor.h"
 #include "Item.h"
 #include "CollisionManager.h"
 #include "CursorManager.h"
 #include "MathManager.h"
+#include "InputManager.h"
 #include "ObjectFactory.h"
 
 ObjectManager* ObjectManager::Instance = nullptr;
@@ -15,7 +15,6 @@ ObjectManager* ObjectManager::Instance = nullptr;
 ObjectManager::ObjectManager()
 {
 	pPlayer = nullptr;
-	pCursor = nullptr;
 	pItem = nullptr;
 	Pause = false;
 	Static = false;
@@ -27,8 +26,6 @@ ObjectManager::ObjectManager()
 	iTime = 0;
 	BuffTime = 0;
 	SuperArmor = 0;
-	Angle = 0;
-	FnB = 0;
 	Score = 0;
 	Kill = 0;
 	HP = 0;
@@ -45,70 +42,69 @@ ObjectManager::~ObjectManager()
 	Release();
 }
 
-void ObjectManager::CreateObject(int _StateIndex, Vector3 _Position)
+void ObjectManager::CreateObject(int _StateIndex, Vector3 _Position, DWORD _dwKey)
 {
 	for (int i = 0; i < 256; ++i)
 	{
 		if (pBullet[i] == nullptr)
 		{
 			pBullet[i] = ObjectFactory::CreateBullet(_Position);
+			pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(2.0, 0.0));
+			pBullet[i]->SetDirection(Vector3(1.0f, 0.0f));
 
 			switch (_StateIndex)
 			{
 			case 0:
 			{
-				switch (Angle)
+				if (_dwKey & KEY_AUP)
 				{
-				case 0:
-					pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(0.0, 1.0));
-					pBullet[i]->SetDirection(Vector3(0.0f, 1.0f));
-					((Bullet*)pBullet[i])->SetIndex(_StateIndex);
-					break;				
-				case 1:
-					if (!FnB)
-					{
-						pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(-2.0, 1.0));
-						pBullet[i]->SetDirection(Vector3(-1.0f, 1.0f));
-					}
-					else if (FnB)
-					{
-						pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(2.0, 1.0));
-						pBullet[i]->SetDirection(Vector3(1.0f, 1.0f));
-					}
-					((Bullet*)pBullet[i])->SetIndex(_StateIndex);
-					break;
-				case 2:
-					if (!FnB)
-					{
-						pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(-2.0, 0.0));
-						pBullet[i]->SetDirection(Vector3(-1.0f, 0.0f));
-					}
-					else if (FnB)
-					{
-						pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(2.0, 0.0));
-						pBullet[i]->SetDirection(Vector3(1.0f, 0.0f));
-					}
-					((Bullet*)pBullet[i])->SetIndex(_StateIndex);
-					break;
-				case 3:
-					if (!FnB)
-					{
-						pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(-2.0, -1.0));
-						pBullet[i]->SetDirection(Vector3(-1.0f, -1.0f));
-					}
-					else if (FnB)
-					{
-						pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(2.0, -1.0));
-						pBullet[i]->SetDirection(Vector3(1.0f, -1.0f));
-					}
-					((Bullet*)pBullet[i])->SetIndex(_StateIndex);
-					break;
-				case 4:
 					pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(0.0, -1.0));
 					pBullet[i]->SetDirection(Vector3(0.0f, -1.0f));
-					((Bullet*)pBullet[i])->SetIndex(_StateIndex);
-					break;
 				}
+				
+				if (_dwKey & KEY_ADOWN)
+				{
+					pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(0.0, -1.0));
+					pBullet[i]->SetDirection(Vector3(0.0f, 1.0f));
+				}
+
+				if (_dwKey & KEY_ALEFT)
+				{
+					pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(-2.0, 0.0));
+					pBullet[i]->SetDirection(Vector3(-1.0f, 0.0f));
+				}
+
+				if (_dwKey & KEY_ARIGHT)
+				{
+					pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(2.0, 0.0));
+					pBullet[i]->SetDirection(Vector3(1.0f, 0.0f));
+				}
+				
+				if (_dwKey & KEY_AUP && _dwKey & KEY_ALEFT)
+				{
+					pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(-2.0, -1.0));
+					pBullet[i]->SetDirection(Vector3(-1.0f, -1.0f));
+				}
+				
+				if (_dwKey & KEY_AUP && _dwKey & KEY_ARIGHT)
+				{
+					pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(2.0, -1.0));
+					pBullet[i]->SetDirection(Vector3(1.0f, -1.0f));
+				}
+				
+				if (_dwKey & KEY_ADOWN && _dwKey & KEY_ALEFT)
+				{
+					pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(-2.0, 1.0));
+					pBullet[i]->SetDirection(Vector3(-1.0f, -1.0f));
+				}
+				
+				if (_dwKey & KEY_ADOWN && _dwKey & KEY_ARIGHT)
+				{
+					pBullet[i]->SetPosition(pPlayer->GetPosition() + Vector3(2.0, 1.0));
+					pBullet[i]->SetDirection(Vector3(1.0f, -1.0f));
+				}
+
+				((Bullet*)pBullet[i])->SetIndex(_StateIndex);				
 				break;
 			}
 			case 1: // Á¤Àü±âÅº
@@ -166,32 +162,34 @@ void ObjectManager::CreateEBullet(int _StateIndex, Vector3 _Position)
 void ObjectManager::Start()
 {
 	pPlayer = ObjectFactory::CreatePlayer();
-	pCursor = ObjectFactory::CreateCursor();
+	iTime = GetTickCount64();
 	Time = GetTickCount64();
 	HP = 5;
 }
 
 int ObjectManager::Update()
 {
+	DWORD dwKey = InputManager::GetInstance()->GetKey();
 	int fire = 0;
 
 	Score = 0;
 	Kill = 0;
 	fire = pPlayer->Update(Pause);
-	pCursor->SetPosition(pPlayer->GetPosition());
-	pCursor->Update(Pause);
-	Angle = ((Cursor*)pCursor)->GetAngle();
-	FnB = ((Cursor*)pCursor)->GetFnB();
 
+	if (Pause)
+	{
+		Time = GetTickCount64();
+		iTime = GetTickCount64();
+	}
 	if (fire == 1)
 	{
 		if(!Static)
-			CreateObject(0, pPlayer->GetPosition());
+			CreateObject(0, pPlayer->GetPosition(), dwKey);
 		else if (Static && pEnemy[0] != nullptr)
-			CreateObject(1, pPlayer->GetPosition());
+			CreateObject(1, pPlayer->GetPosition(), dwKey);
 	}
 
-	if (Time + 2500 < GetTickCount64())
+	if (Time + 2000 < GetTickCount64())
 	{
 		Time = GetTickCount64();
 		for (int i = 0; i < 32; ++i)
@@ -206,11 +204,11 @@ int ObjectManager::Update()
 		}
 	}
 
-	if (iTime + 5000 < GetTickCount64())
+	if (iTime + 10000 < GetTickCount64())
 	{
 		iTime = GetTickCount64();
 		srand(GetTickCount64());
-		if (pItem == nullptr)
+		if (pItem == nullptr && !Pause)
 		{
 			pItem = new Item;
 			pItem->SetOption(rand() % 4);
@@ -219,7 +217,7 @@ int ObjectManager::Update()
 	}
 
 	int resulti = 0;
-	if (pItem)
+	if (pItem && !Pause)
 	{
 		resulti = pItem->Update(Pause);
 		if (CollisionManager::RectCollision(
@@ -287,8 +285,8 @@ int ObjectManager::Update()
 			{
 				if ((pPlayer->GetTransform().Position.y + 1.5f >= pEnemy[i]->GetTransform().Position.y
 					&& pPlayer->GetTransform().Position.y - 1.5f <= pEnemy[i]->GetTransform().Position.y) || 
-					(pPlayer->GetTransform().Position.x + 2.5f >= pEnemy[i]->GetTransform().Position.y
-					&& pPlayer->GetTransform().Position.x - 2.5f <= pEnemy[i]->GetTransform().Position.y))
+					(pPlayer->GetTransform().Position.x + 2.5f >= pEnemy[i]->GetTransform().Position.x
+					&& pPlayer->GetTransform().Position.x - 2.5f <= pEnemy[i]->GetTransform().Position.x))
 				{
 					Kill++;
 					Score += 1000;
@@ -307,6 +305,15 @@ int ObjectManager::Update()
 		{			
 			result = pBullet[i]->Update(Pause);
 
+			if (pBullet[i]->GetTarget() == nullptr)
+			{				
+				for (int j = 0; j < 32; ++j)
+				{
+					if (pEnemy[j])
+						pBullet[i]->SetTarget(pEnemy[j]);
+					break;
+				}
+			}
 			for (int j = 0; j < 32; ++j)
 			{
 				if (pEnemy[j])
@@ -406,8 +413,6 @@ void ObjectManager::Render()
 		if(SuperArmor + 500 < GetTickCount64() && SuperArmor + 800 > GetTickCount64())
 			pPlayer->Render();
 	}
-
-	pCursor->Render();
 	if (BuffTime + 1000 >= GetTickCount64() && Molotov)
 	{
 		CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 12);
@@ -420,11 +425,38 @@ void ObjectManager::Render()
 	}
 }
 
+void ObjectManager::SoftRelease()
+{
+	delete pItem;
+	pItem = nullptr;
+
+	for (int i = 0; i < 32; ++i)
+	{
+		delete pEnemy[i];
+		pEnemy[i] = nullptr;
+	}
+
+	for (int i = 0; i < 128; ++i)
+	{
+		delete pBullet[i];
+		pBullet[i] = nullptr;
+	}
+
+	for (int i = 0; i < 128; ++i)
+	{
+		delete eBullet[i];
+		eBullet[i] = nullptr;
+	}
+}
+
 void ObjectManager::Release()
 {
 	delete pPlayer;
 	pPlayer = nullptr;
-	
+
+	delete pItem;
+	pItem = nullptr;
+
 	for (int i = 0; i < 32; ++i)
 	{
 		delete pEnemy[i];

@@ -4,8 +4,9 @@
 #include "ObjectManager.h"
 #include "UIManager.h"
 #include "CursorManager.h"
+#include "SceneManager.h"
 
-Stage::Stage() : Tuto(false), ITuto(false)
+Stage::Stage() : Menu(false), ITuto(false), Guide(false)
 {
 	Life = 0;
 	Hit = 0;
@@ -13,6 +14,7 @@ Stage::Stage() : Tuto(false), ITuto(false)
 	Score = 0;
 	Combo = 0;
 	ComboGauge = 0;
+	Cursor = 0;
 }
 
 Stage::~Stage()
@@ -71,7 +73,7 @@ void Stage::Start()
 
 	PlayerUI[0]  = (char*)"스코어 :";
 	PlayerUI[1]  = (char*)"콤보 :";
-	PlayerUI[2]  = (char*)"콤보 게이지 :";
+	PlayerUI[2]  = (char*)"스킬 게이지 :";
 	PlayerUI[3]  = (char*)"■";
 	PlayerUI[4]  = (char*)"스킬 :";
 	PlayerUI[5]  = (char*)"ON";
@@ -83,6 +85,7 @@ void Stage::Start()
 	PlayerUI[11] = (char*)"플레이어는 피격시 1초 동안 무적상태가 됩니다";
 	PlayerUI[12] = (char*)"스테이지 진행도 :";
 	PlayerUI[13] = (char*)"★";
+	PlayerUI[14] = (char*)"방향키와 엔터키를 사용하세요";
 
 	Life = 5;
 	Hit = 0;
@@ -90,6 +93,8 @@ void Stage::Start()
 	Score = 0;
 	Combo = 0.0f;
 	ComboGauge = 0;
+	Cursor = 21;
+	Time = GetTickCount64();
 }
 
 void Stage::Update()
@@ -111,23 +116,124 @@ void Stage::Update()
 	else if (Combo < 100)
 		Score += ObjectManager::GetInstance()->GetScore() * 1.8;
 
+	if (dwKey & KEY_TAB)
+		Menu = true;
+
 	if (ITuto)
 	{
 		ObjectManager::GetInstance()->SetPause(true);
 		if (dwKey & KEY_R)
 		{
 			ITuto = false;
+			if (!Menu)
+				ObjectManager::GetInstance()->SetPause(false);
+		}
+	}
+
+	if (Guide)
+	{
+		GuideManager::GetInstance()->Update();
+		if (dwKey & KEY_R)
+		{
+			Guide = false;
+		}
+	}
+
+	if (Menu)
+	{
+		ObjectManager::GetInstance()->SetPause(true);
+		if (dwKey & KEY_AUP && Cursor > 21 && Time + 100 < GetTickCount64()
+			&& !ITuto && !Guide)
+		{
+			Cursor -= 2;
+			Time = GetTickCount64();
+		}
+		if (dwKey & KEY_ADOWN && Cursor < 29 && Time + 100 < GetTickCount64()
+			&& !ITuto && !Guide)
+		{
+			Cursor += 2;
+			Time = GetTickCount64();
+		}
+		if (dwKey & KEY_RETURN && Time + 100 < GetTickCount64() && Cursor == 21
+			&& !ITuto && !Guide)
+		{
+			Menu = false;
 			ObjectManager::GetInstance()->SetPause(false);
 		}
-	}	
+		if (dwKey & KEY_RETURN && Time + 100 < GetTickCount64() && Cursor == 23
+			&& !ITuto && !Guide)
+		{
+			Guide = true;
+			Time = GetTickCount64();
+		}
+		if (dwKey & KEY_RETURN && Time + 100 < GetTickCount64() && Cursor == 25
+			&& !ITuto && !Guide)
+		{
+			ITuto = true;
+			Time = GetTickCount64();
+		}	
+		if (dwKey & KEY_RETURN && Time + 100 < GetTickCount64() && Cursor == 27
+			&& !ITuto && !Guide)
+		{
+			SceneManager::GetInstance()->SetScene(SCENEID::MENU);
+		}			
+		if (dwKey & KEY_RETURN && Time + 100 < GetTickCount64() && Cursor == 29
+			&& !ITuto && !Guide)
+		{
+			exit(NULL);
+		}		
+	}
 }
 
 void Stage::Render()
 {
 	ObjectManager::GetInstance()->Render();
+	
+	UIManager::GetInstance()->Render();
+
+	if (Menu)
+	{
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 18.0f, (char*)"┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 19.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 20.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 21.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 22.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 23.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 24.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 25.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 26.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 27.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 28.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 29.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 30.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 31.0f, (char*)"ㅣ                            ㅣ");
+		CursorManager::GetInstance()->WriteBuffer(65 - strlen("└ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐") / 2, 32.0f, (char*)"└ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┘");
+		if (Cursor != 21)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 21.0f, (char*)"[ 게임으로 돌아가기 ]", 8);
+		else if (Cursor == 21)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 21.0f, (char*)"[ 게임으로 돌아가기 ]");
+		if (Cursor != 23)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 23.0f, (char*)"[  조작가이드 보기  ]", 8);
+		else if (Cursor == 23)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 23.0f, (char*)"[  조작가이드 보기  ]");
+		if (Cursor != 25)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 25.0f, (char*)"[  아이템효과 보기  ]", 8);
+		else if (Cursor == 25)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 25.0f, (char*)"[  아이템효과 보기  ]");
+		if (Cursor != 27)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 27.0f, (char*)"[  메인메뉴로 가기  ]", 8);
+		else if (Cursor == 27)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 27.0f, (char*)"[  메인메뉴로 가기  ]");
+		if (Cursor != 29)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 29.0f, (char*)"[     게임 종료     ]", 8);
+		else if (Cursor == 29)
+			CursorManager::GetInstance()->WriteBuffer(65 - strlen("[ 게임으로 돌아가기 ]") / 2, 29.0f, (char*)"[     게임 종료     ]");
+	}
+
 	if (ITuto)
 		GuideManager::GetInstance()->Render(2);
-	UIManager::GetInstance()->Render();
+	if (Guide)
+		GuideManager::GetInstance()->Render(1);
 	CursorManager::GetInstance()->WriteBuffer(126.0f, 8.0f, PlayerUI[0], 10);
 	if(Score < 1000)
 		CursorManager::GetInstance()->WriteBuffer(152.0f, 8.0f, Score, 10);
@@ -299,27 +405,33 @@ void Stage::Render()
 	if (Kill > 50)
 	{
 		for(int i = 0; i < 5; ++i)
-			CursorManager::GetInstance()->WriteBuffer(130.0f + i * 4, 35.0f, PlayerUI[13], 11);
+			CursorManager::GetInstance()->WriteBuffer(130.0f + i * 4, 36.0f, PlayerUI[13], 11);
 	}
-	else if (Kill > 40)
+	else if (Kill >= 40)
 	{
 		for (int i = 0; i < 4; ++i)
-			CursorManager::GetInstance()->WriteBuffer(130.0f + i * 4, 35.0f, PlayerUI[13], 11);
+			CursorManager::GetInstance()->WriteBuffer(130.0f + i * 4, 36.0f, PlayerUI[13], 11);
 	}
-	else if (Kill > 30)
+	else if (Kill >= 30)
 	{
 		for (int i = 0; i < 3; ++i)
-			CursorManager::GetInstance()->WriteBuffer(130.0f + i * 4, 35.0f, PlayerUI[13], 11);
+			CursorManager::GetInstance()->WriteBuffer(130.0f + i * 4, 36.0f, PlayerUI[13], 11);
 	}
-	else if (Kill > 20)
+	else if (Kill >= 20)
 	{
 		for (int i = 0; i < 2; ++i)
-			CursorManager::GetInstance()->WriteBuffer(130.0f + i * 4, 35.0f, PlayerUI[13], 11);
+			CursorManager::GetInstance()->WriteBuffer(130.0f + i * 4, 36.0f, PlayerUI[13], 11);
 	}
-	else if (Kill > 10)
-		CursorManager::GetInstance()->WriteBuffer(136.0f, 34.0f, PlayerUI[13], 11);
+	else if (Kill >= 10)
+		CursorManager::GetInstance()->WriteBuffer(130.0f, 36.0f, PlayerUI[13], 11);
 
 	CursorManager::GetInstance()->WriteBuffer(142.0f, 40.0f, PlayerUI[9], 8);
+	CursorManager::GetInstance()->WriteBuffer(128.0f, 41.0f, PlayerUI[14], 8);
+	if (Menu)
+	{
+		CursorManager::GetInstance()->WriteBuffer(142.0f, 40.0f, PlayerUI[9]);
+		CursorManager::GetInstance()->WriteBuffer(128.0f, 41.0f, PlayerUI[14]);
+	}
 }
 
 void Stage::Release()
