@@ -13,7 +13,7 @@ Stage::Stage() : Menu(false), ITuto(false), Guide(false)
 	Kill = 0;
 	Score = 0;
 	Combo = 0;
-	ComboGauge = 0;
+	SkillGauge = 0;
 	Cursor = 0;
 }
 
@@ -24,6 +24,8 @@ Stage::~Stage()
 void Stage::Start()
 {
 	ITuto = true;
+	Guide = false;
+	Menu = false;
 	ObjectManager::GetInstance()->Start();
 
 	ComboUI[0]  = (char*)" ___";
@@ -92,7 +94,7 @@ void Stage::Start()
 	Kill = 0;
 	Score = 0;
 	Combo = 0.0f;
-	ComboGauge = 0;
+	SkillGauge = 0;
 	Cursor = 21;
 	Time = GetTickCount64();
 }
@@ -107,14 +109,33 @@ void Stage::Update()
 
 	if (Hit == 1)
 		Combo = 0;
-	if(Combo < 20)
+	if (Combo < 20)
+	{
 		Score += ObjectManager::GetInstance()->GetScore();
+		SkillGauge += ObjectManager::GetInstance()->GetScore() * 0.01;
+	}
 	else if (Combo < 40)
+	{
 		Score += ObjectManager::GetInstance()->GetScore() * 1.2;
+		SkillGauge += ObjectManager::GetInstance()->GetScore() * 0.012;
+	}
 	else if (Combo < 70)
+	{
 		Score += ObjectManager::GetInstance()->GetScore() * 1.4;
+		SkillGauge += ObjectManager::GetInstance()->GetScore() * 0.014;
+	}
 	else if (Combo < 100)
+	{
 		Score += ObjectManager::GetInstance()->GetScore() * 1.8;
+		SkillGauge += ObjectManager::GetInstance()->GetScore() * 0.018;
+	}
+
+	if (SkillGauge >= 300)
+	{
+		ObjectManager::GetInstance()->SetSkill(true);
+		if (ObjectManager::GetInstance()->GetActive() == true)
+			SkillGauge = 0;
+	}
 
 	if (dwKey & KEY_TAB)
 		Menu = true;
@@ -175,6 +196,7 @@ void Stage::Update()
 		if (dwKey & KEY_RETURN && Time + 100 < GetTickCount64() && Cursor == 27
 			&& !ITuto && !Guide)
 		{
+			ObjectManager::GetInstance()->SoftRelease();
 			SceneManager::GetInstance()->SetScene(SCENEID::MENU);
 		}			
 		if (dwKey & KEY_RETURN && Time + 100 < GetTickCount64() && Cursor == 29
@@ -182,6 +204,11 @@ void Stage::Update()
 		{
 			exit(NULL);
 		}		
+	}
+	if (Kill >= 50)
+	{
+		ObjectManager::GetInstance()->SoftRelease();
+		SceneManager::GetInstance()->SetScene(SCENEID::BOSSSN);
 	}
 }
 
@@ -234,175 +261,175 @@ void Stage::Render()
 		GuideManager::GetInstance()->Render(2);
 	if (Guide)
 		GuideManager::GetInstance()->Render(1);
-	CursorManager::GetInstance()->WriteBuffer(126.0f, 8.0f, PlayerUI[0], 10);
+	CursorManager::GetInstance()->WriteBuffer(126.0f, 4.0f, PlayerUI[0], 10);
 	if(Score < 1000)
-		CursorManager::GetInstance()->WriteBuffer(152.0f, 8.0f, Score, 10);
+		CursorManager::GetInstance()->WriteBuffer(152.0f, 4.0f, Score, 10);
 	else if (Score < 10000)
-		CursorManager::GetInstance()->WriteBuffer(151.0f, 8.0f, Score, 10);
+		CursorManager::GetInstance()->WriteBuffer(151.0f, 4.0f, Score, 10);
 	else if (Score < 100000)
-		CursorManager::GetInstance()->WriteBuffer(150.0f, 8.0f, Score, 10);
+		CursorManager::GetInstance()->WriteBuffer(150.0f, 4.0f, Score, 10);
 	else if (Score < 1000000)
-		CursorManager::GetInstance()->WriteBuffer(149.0f, 8.0f, Score, 10);
+		CursorManager::GetInstance()->WriteBuffer(149.0f, 4.0f, Score, 10);
 
 	if (ObjectManager::GetInstance()->GetScore() != 0)
 	{
-		CursorManager::GetInstance()->WriteBuffer(126.0f, 10.0f, (char*)"+", 10);
-		CursorManager::GetInstance()->WriteBuffer(151.0f, 10.0f, ObjectManager::GetInstance()->GetScore(), 10); 
+		CursorManager::GetInstance()->WriteBuffer(126.0f, 6.0f, (char*)"+", 10);
+		CursorManager::GetInstance()->WriteBuffer(151.0f, 6.0f, ObjectManager::GetInstance()->GetScore(), 10); 
 	}
 
-	CursorManager::GetInstance()->WriteBuffer(126.0f, 16.0f, PlayerUI[1], 14);
+	CursorManager::GetInstance()->WriteBuffer(126.0f, 8.0f, PlayerUI[1], 14);
 	if (Combo < 100)
 	{
 		switch (Combo % 10)
 		{
 		case 0:
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[0], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[1], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[2], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[3], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f,  8.0f, ComboUI[0], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f,  9.0f, ComboUI[1], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[2], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[3], 14);
 			break;
 		case 1:
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[4], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[5], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[6], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[7], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 8.0f, ComboUI[4], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 9.0f, ComboUI[5], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[6], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[7], 14);
 			break;
 		case 2:
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[8], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[9], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[10], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[11], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 8.0f, ComboUI[8], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 9.0f, ComboUI[9], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[10], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[11], 14);
 			break;
 		case 3:
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[12], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[13], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[14], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[15], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 8.0f, ComboUI[12], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 9.0f, ComboUI[13], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[14], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[15], 14);
 			break;
 		case 4:
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[16], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[17], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[18], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[19], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 8.0f, ComboUI[16], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 9.0f, ComboUI[17], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[18], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[19], 14);
 			break;											 
 		case 5:												 
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[20], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[21], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[22], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[23], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 8.0f, ComboUI[20], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 9.0f, ComboUI[21], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[22], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[23], 14);
 			break;
 		case 6:
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[24], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[25], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[26], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[27], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 8.0f, ComboUI[24], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 9.0f, ComboUI[25], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[26], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[27], 14);
 			break;											  
 		case 7:												  
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[28], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[29], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[30], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[31], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 8.0f, ComboUI[28], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 9.0f, ComboUI[29], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[30], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[31], 14);
 			break;											 
 		case 8:												 
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[32], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[33], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[34], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[35], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 8.0f, ComboUI[32], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 9.0f, ComboUI[33], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[34], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[35], 14);
 			break;											 
 		case 9:												 
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 16.0f, ComboUI[36], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 17.0f, ComboUI[37], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 18.0f, ComboUI[38], 14);
-			CursorManager::GetInstance()->WriteBuffer(144.0f, 19.0f, ComboUI[39], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 8.0f, ComboUI[36], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 9.0f, ComboUI[37], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 10.0f, ComboUI[38], 14);
+			CursorManager::GetInstance()->WriteBuffer(144.0f, 11.0f, ComboUI[39], 14);
 			break;
 		}
 		switch (Combo / 10)
 		{
 		case 1:
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 16.0f, ComboUI[4], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 17.0f, ComboUI[5], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 18.0f, ComboUI[6], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 19.0f, ComboUI[7], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 8.0f, ComboUI[4], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 9.0f, ComboUI[5], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 10.0f, ComboUI[6], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 11.0f, ComboUI[7], 14);
 			break;
 		case 2:
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 16.0f, ComboUI[8], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 17.0f, ComboUI[9], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 18.0f, ComboUI[10], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 19.0f, ComboUI[11], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 8.0f, ComboUI[8], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 9.0f, ComboUI[9], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 10.0f, ComboUI[10], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 11.0f, ComboUI[11], 14);
 			break;											  
 		case 3:												  
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 16.0f, ComboUI[12], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 17.0f, ComboUI[13], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 18.0f, ComboUI[14], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 19.0f, ComboUI[15], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 8.0f, ComboUI[12], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 9.0f, ComboUI[13], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 10.0f, ComboUI[14], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 11.0f, ComboUI[15], 14);
 			break;
 		case 4:
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 16.0f, ComboUI[16], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 17.0f, ComboUI[17], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 18.0f, ComboUI[18], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 19.0f, ComboUI[19], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 8.0f, ComboUI[16], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 9.0f, ComboUI[17], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 10.0f, ComboUI[18], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 11.0f, ComboUI[19], 14);
 			break;											 
 		case 5:												 
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 16.0f, ComboUI[20], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 17.0f, ComboUI[21], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 18.0f, ComboUI[22], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 19.0f, ComboUI[23], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 8.0f, ComboUI[20], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 9.0f, ComboUI[21], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 10.0f, ComboUI[22], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 11.0f, ComboUI[23], 14);
 			break;											 
 		case 6:												 
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 16.0f, ComboUI[24], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 17.0f, ComboUI[25], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 18.0f, ComboUI[26], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 19.0f, ComboUI[27], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 8.0f, ComboUI[24], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 9.0f, ComboUI[25], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 10.0f, ComboUI[26], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 11.0f, ComboUI[27], 14);
 			break;
 		case 7:
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 16.0f, ComboUI[28], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 17.0f, ComboUI[29], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 18.0f, ComboUI[30], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 19.0f, ComboUI[31], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 8.0f, ComboUI[28], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 9.0f, ComboUI[29], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 10.0f, ComboUI[30], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 11.0f, ComboUI[31], 14);
 			break;											 
 		case 8:												 
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 16.0f, ComboUI[32], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 17.0f, ComboUI[33], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 18.0f, ComboUI[34], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 19.0f, ComboUI[35], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 8.0f, ComboUI[32], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 9.0f, ComboUI[33], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 10.0f, ComboUI[34], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 11.0f, ComboUI[35], 14);
 			break;											 
 		case 9:												 
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 16.0f, ComboUI[36], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 17.0f, ComboUI[37], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 18.0f, ComboUI[38], 14);
-			CursorManager::GetInstance()->WriteBuffer(138.0f, 19.0f, ComboUI[39], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 8.0f, ComboUI[36], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 9.0f, ComboUI[37], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 10.0f, ComboUI[38], 14);
+			CursorManager::GetInstance()->WriteBuffer(138.0f, 11.0f, ComboUI[39], 14);
 			break;
 		}
 	}
 	
 	if (Combo > 99)
 	{
-		CursorManager::GetInstance()->WriteBuffer(136.0f, 6.0f, ComboUI[36], 12);
-		CursorManager::GetInstance()->WriteBuffer(136.0f, 7.0f, ComboUI[37], 12);
-		CursorManager::GetInstance()->WriteBuffer(136.0f, 8.0f, ComboUI[38], 12);
-		CursorManager::GetInstance()->WriteBuffer(136.0f, 9.0f, ComboUI[39], 12);
-		CursorManager::GetInstance()->WriteBuffer(142.0f, 6.0f, ComboUI[36], 12);
-		CursorManager::GetInstance()->WriteBuffer(142.0f, 7.0f, ComboUI[37], 12);
-		CursorManager::GetInstance()->WriteBuffer(142.0f, 8.0f, ComboUI[38], 12);
-		CursorManager::GetInstance()->WriteBuffer(142.0f, 9.0f, ComboUI[39], 12);
-		CursorManager::GetInstance()->WriteBuffer(148.0f, 6.0f, ComboUI[40], 12);
-		CursorManager::GetInstance()->WriteBuffer(148.0f, 7.0f, ComboUI[41], 12);
-		CursorManager::GetInstance()->WriteBuffer(148.0f, 8.0f, ComboUI[42], 12);
-		CursorManager::GetInstance()->WriteBuffer(148.0f, 9.0f, ComboUI[43], 12);
+		CursorManager::GetInstance()->WriteBuffer(136.0f, 8.0f, ComboUI[36], 12);
+		CursorManager::GetInstance()->WriteBuffer(136.0f, 9.0f, ComboUI[37], 12);
+		CursorManager::GetInstance()->WriteBuffer(136.0f, 10.0f, ComboUI[38], 12);
+		CursorManager::GetInstance()->WriteBuffer(136.0f, 11.0f, ComboUI[39], 12);
+		CursorManager::GetInstance()->WriteBuffer(142.0f, 8.0f, ComboUI[36], 12);
+		CursorManager::GetInstance()->WriteBuffer(142.0f, 9.0f, ComboUI[37], 12);
+		CursorManager::GetInstance()->WriteBuffer(142.0f, 10.0f, ComboUI[38], 12);
+		CursorManager::GetInstance()->WriteBuffer(142.0f, 11.0f, ComboUI[39], 12);
+		CursorManager::GetInstance()->WriteBuffer(148.0f, 8.0f, ComboUI[40], 12);
+		CursorManager::GetInstance()->WriteBuffer(148.0f, 9.0f, ComboUI[41], 12);
+		CursorManager::GetInstance()->WriteBuffer(148.0f, 10.0f, ComboUI[42], 12);
+		CursorManager::GetInstance()->WriteBuffer(148.0f, 11.0f, ComboUI[43], 12);
 	}
 
-	CursorManager::GetInstance()->WriteBuffer(126.0f, 26.0f, PlayerUI[7], 10);
+	CursorManager::GetInstance()->WriteBuffer(126.0f, 30.0f, PlayerUI[7], 10);
 	for (int i = 1; i <= Life; ++i)
 	{
-		CursorManager::GetInstance()->WriteBuffer(132.0f + 4 * i, 26.0f, PlayerUI[8], 10);
+		CursorManager::GetInstance()->WriteBuffer(132.0f + 4 * i, 30.0f, PlayerUI[8], 10);
 		if (Life <= 3)
-			CursorManager::GetInstance()->WriteBuffer(132.0f + 4 * i, 26.0f, PlayerUI[8], 14);
+			CursorManager::GetInstance()->WriteBuffer(132.0f + 4 * i, 30.0f, PlayerUI[8], 14);
 		if (Life == 1)
-			CursorManager::GetInstance()->WriteBuffer(132.0f + 4 * i, 26.0f, PlayerUI[8], 12);
+			CursorManager::GetInstance()->WriteBuffer(132.0f + 4 * i, 30.0f, PlayerUI[8], 12);
 	}
 
 	CursorManager::GetInstance()->WriteBuffer(126.0f, 34.0f, PlayerUI[12], 11);
-	if (Kill > 50)
+	if (Kill >= 50)
 	{
 		for(int i = 0; i < 5; ++i)
 			CursorManager::GetInstance()->WriteBuffer(130.0f + i * 4, 36.0f, PlayerUI[13], 11);
@@ -427,10 +454,28 @@ void Stage::Render()
 
 	CursorManager::GetInstance()->WriteBuffer(142.0f, 40.0f, PlayerUI[9], 8);
 	CursorManager::GetInstance()->WriteBuffer(128.0f, 41.0f, PlayerUI[14], 8);
+	CursorManager::GetInstance()->WriteBuffer(126.0f, 16.0f, PlayerUI[4], 13);
+	CursorManager::GetInstance()->WriteBuffer(126.0f, 18.0f, PlayerUI[2], 13);
 	if (Menu)
 	{
 		CursorManager::GetInstance()->WriteBuffer(142.0f, 40.0f, PlayerUI[9]);
 		CursorManager::GetInstance()->WriteBuffer(128.0f, 41.0f, PlayerUI[14]);
+	}
+	if (SkillGauge < 300)
+		CursorManager::GetInstance()->WriteBuffer(148.0f, 16.0f, PlayerUI[6], 12);
+	if (SkillGauge >= 300)
+		CursorManager::GetInstance()->WriteBuffer(148.0f, 16.0f, PlayerUI[5], 14);
+	for (int i = 1; i <= SkillGauge / 60; ++i)
+	{
+		CursorManager::GetInstance()->WriteBuffer(154.0f, 25 - i, PlayerUI[3], 9);
+		if(SkillGauge >= 120)
+			CursorManager::GetInstance()->WriteBuffer(154.0f, 25 - i, PlayerUI[3], 11);
+		if (SkillGauge >= 180)
+			CursorManager::GetInstance()->WriteBuffer(154.0f, 25 - i, PlayerUI[3], 10);
+		if (SkillGauge >= 240)
+			CursorManager::GetInstance()->WriteBuffer(154.0f, 25 - i, PlayerUI[3], 14);
+		if (SkillGauge >= 240)
+			CursorManager::GetInstance()->WriteBuffer(154.0f, 25 - i, PlayerUI[3], 12);
 	}
 }
 

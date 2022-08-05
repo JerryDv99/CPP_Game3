@@ -12,16 +12,15 @@ private:
 	bool Menu;
 	bool ITuto;
 	bool Guide;
-
 	char* ComboUI[64];
 	char* PlayerUI[64];
 	int Life;
 	int Score;
 	int Kill;
 	int Combo;
-	int ComboGauge;
 	int Hit;
 	int Cursor;
+	int SkillGauge;
 public:
 	Stage();
 	virtual ~Stage();

@@ -14,14 +14,14 @@ public:
 	virtual void Render()override;
 	virtual void Release()override;
 private:
-	void RendKirby1(float _x, float _y, ULONGLONG _Time);
-	void RendKirby2(float _x, float _y, ULONGLONG _Time);
-	void RendKirby3(float _x, float _y, ULONGLONG _Time);
+	void RendKirby1(float _x, float _y);
+	void RendKirby2(float _x, float _y);
+	void RendKirby3(float _x, float _y);
 public:
 	Kirby();
 	virtual ~Kirby();
 };
-
+/*
 "      :::           "
 "     :::::          "
 "    ::::::          "
@@ -51,7 +51,7 @@ public:
 ":***:*****:::::::I$M::V$F::::::   "
 "*********::::***:*IV:::IF::::::*: "
 "*********::::***::*::::**:***::**:"
-" *********:::::::::::V:::::**:::**"
+" *********:::::::::::O:::::**:::**"
 "  ********:::::::::::::::::::::**:"
 "  *********::::::::::::::::::::**:"
 "  **********:::::::::::::::::::**:"
@@ -88,3 +88,4 @@ public:
 "    *MIIMMM* ::::*MMM*    "
 "     VMIII*               "
 "       **                 "
+*/

@@ -19,6 +19,7 @@ private:
 	Object* pPlayer;
 	Object* pEnemy[32];
 	Object* pItem;
+	Object* pKirby;
 	ULONGLONG Time;
 	ULONGLONG iTime;
 	ULONGLONG BuffTime;
@@ -30,6 +31,9 @@ private:
 	bool Buddy;
 	bool Hit;
 	bool SA;
+	bool Skill;
+	bool AtvSkill;
+	ULONGLONG Active;
 	int Score;
 	int Kill;
 	int HP;
@@ -42,9 +46,11 @@ public:
 	void SoftRelease();
 	void Release();
 	void SetPause(bool _Pause) { Pause = _Pause; }
+	void SetSkill(bool _Skill) { Skill = _Skill; }
 	int GetScore() { return Score; }
 	int GetKill() { return Kill; }
 	int GetHP() { return HP; }
+	bool GetActive() { return AtvSkill; }
 private:
 	ObjectManager();
 public:

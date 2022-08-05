@@ -3,6 +3,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Kirby.h"
 #include "CollisionManager.h"
 #include "CursorManager.h"
 #include "MathManager.h"
@@ -16,12 +17,16 @@ ObjectManager::ObjectManager()
 {
 	pPlayer = nullptr;
 	pItem = nullptr;
+	pKirby = nullptr;
 	Pause = false;
 	Static = false;
 	Molotov = false;
 	Shield = false;
 	Buddy = false;
 	Hit = false;
+	Skill = false;
+	AtvSkill = false;
+	Active = 0;
 	Time = 0;
 	iTime = 0;
 	BuffTime = 0;
@@ -162,6 +167,8 @@ void ObjectManager::CreateEBullet(int _StateIndex, Vector3 _Position)
 void ObjectManager::Start()
 {
 	pPlayer = ObjectFactory::CreatePlayer();
+	pKirby = new Kirby;
+	pKirby->Start();
 	iTime = GetTickCount64();
 	Time = GetTickCount64();
 	HP = 5;
@@ -381,6 +388,16 @@ int ObjectManager::Update()
 			eBullet[i] = nullptr;
 		}
 	}
+
+	if (Skill)
+	{
+		if (dwKey & KEY_R)
+		{
+			Active = GetTickCount64();
+			AtvSkill = true;
+		}
+	}
+
 	return 0;
 }
 
@@ -423,6 +440,7 @@ void ObjectManager::Render()
 			CursorManager::GetInstance()->WriteBuffer(pPlayer->GetPosition().x - 2, i, (char*)"¡á¡á¡á", 12);
 		}		
 	}
+	((Kirby*)pKirby)->Render();
 }
 
 void ObjectManager::SoftRelease()
@@ -447,6 +465,10 @@ void ObjectManager::SoftRelease()
 		delete eBullet[i];
 		eBullet[i] = nullptr;
 	}
+	iTime = GetTickCount64();
+	Time = GetTickCount64();
+	HP = 5;
+	pPlayer->SetPosition(Vector3(60.0f, 25.0f));
 }
 
 void ObjectManager::Release()
