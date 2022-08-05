@@ -398,6 +398,10 @@ int ObjectManager::Update()
 		}
 	}
 
+	if (AtvSkill)
+	{
+
+	}
 	return 0;
 }
 
@@ -440,7 +444,9 @@ void ObjectManager::Render()
 			CursorManager::GetInstance()->WriteBuffer(pPlayer->GetPosition().x - 2, i, (char*)"¡á¡á¡á", 12);
 		}		
 	}
-	((Kirby*)pKirby)->Render();
+	/*((Kirby*)pKirby)->RendKirby1();
+	((Kirby*)pKirby)->RendKirby2();
+	((Kirby*)pKirby)->RendKirby3();*/
 }
 
 void ObjectManager::SoftRelease()

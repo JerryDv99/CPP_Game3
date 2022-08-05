@@ -13,7 +13,7 @@ public:
 	virtual int Update(bool _Pause)override;
 	virtual void Render()override;
 	virtual void Release()override;
-private:
+public:
 	void RendKirby1(float _x, float _y);
 	void RendKirby2(float _x, float _y);
 	void RendKirby3(float _x, float _y);
