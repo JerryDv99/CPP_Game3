@@ -2,7 +2,7 @@
 #include "CursorManager.h"
 #include "MathManager.h"
 
-Bullet::Bullet() : T(0)
+Bullet::Bullet() : T(0), Inhale(false)
 {
 }
 
@@ -42,6 +42,12 @@ int Bullet::Update(bool _Pause)
 		case 2:
 		{
 			Info.Position += Info.Direction * Speed;
+
+			if (Inhale)
+			{
+				Info.Direction = MathManager::GetDirection(Info.Position, Target->GetPosition());
+				Info.Position += Info.Direction * 1.0f;
+			}
 			break;
 		}
 		}

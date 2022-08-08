@@ -3,7 +3,7 @@
 #include "CursorManager.h"
 #include "MathManager.h"
 
-Enemy::Enemy()
+Enemy::Enemy() : Inhale(false), eTime(0), Count(0)
 {
 }
 
@@ -65,14 +65,15 @@ int Enemy::Update(bool _Pause)
 	Info.Direction = MathManager::GetDirection(Info.Position, Target->GetPosition());
 	if (!_Pause)
 		Info.Position += Info.Direction * (Speed * 0.05f);
-	if (eTime + 1500 < GetTickCount64() && !_Pause)
+	if (eTime + 1500 < GetTickCount64() && !_Pause && !Inhale)
 	{		
 		ObjectManager::GetInstance()->CreateEBullet(2, Info.Position);
 		eTime = GetTickCount64();
 	}
 	if (_Pause)
 		eTime = GetTickCount64();
-
+	if (Inhale)
+		Info.Position += Info.Direction * 1.0f;
 	return 0;
 }
 

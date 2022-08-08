@@ -7,7 +7,8 @@ private:
 	char* Kirby1[64];
 	char* Kirby2[64];
 	char* Kirby3[64];
-	ULONGLONG Time;
+	char* Inhale1[64];
+	char* Inhale2[64];
 public:
 	virtual void Start()override;
 	virtual int Update(bool _Pause)override;
@@ -17,6 +18,8 @@ public:
 	void RendKirby1(float _x, float _y);
 	void RendKirby2(float _x, float _y);
 	void RendKirby3(float _x, float _y);
+	void RendInhale1(float _x, float _y);
+	void RendInhale2(float _x, float _y);
 public:
 	Kirby();
 	virtual ~Kirby();

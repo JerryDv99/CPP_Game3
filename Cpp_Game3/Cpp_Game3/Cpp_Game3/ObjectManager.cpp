@@ -26,7 +26,10 @@ ObjectManager::ObjectManager()
 	Hit = false;
 	Skill = false;
 	AtvSkill = false;
+	Bounce = false;
+	Inhale = false;
 	Active = 0;
+	TKirby = 0;
 	Time = 0;
 	iTime = 0;
 	BuffTime = 0;
@@ -34,6 +37,9 @@ ObjectManager::ObjectManager()
 	Score = 0;
 	Kill = 0;
 	HP = 0;
+	Rend = 0;
+	KWidth = 0.0f;
+	KHeight = 0.0f;
 	for (int i = 0; i < 128; ++i)
 		pBullet[i] = nullptr;
 	for (int i = 0; i < 128; ++i)
@@ -169,9 +175,15 @@ void ObjectManager::Start()
 	pPlayer = ObjectFactory::CreatePlayer();
 	pKirby = new Kirby;
 	pKirby->Start();
+	KWidth = 0.0f;
+	KHeight = 29.0f;
+	Bounce = false;
+	Inhale = false;
 	iTime = GetTickCount64();
 	Time = GetTickCount64();
 	HP = 5;
+
+	Skill = true;
 }
 
 int ObjectManager::Update()
@@ -196,7 +208,7 @@ int ObjectManager::Update()
 			CreateObject(1, pPlayer->GetPosition(), dwKey);
 	}
 
-	if (Time + 2000 < GetTickCount64())
+	if (Time + 1500 < GetTickCount64())
 	{
 		Time = GetTickCount64();
 		for (int i = 0; i < 32; ++i)
@@ -287,8 +299,19 @@ int ObjectManager::Update()
 	{
 		if (pEnemy[i])
 		{
-			pEnemy[i]->Update(Pause);
-			if (Molotov)
+			if (!Inhale)
+			{
+				pEnemy[i]->SetTarget(pPlayer);
+				((Enemy*)pEnemy[i])->SetInhale(Inhale);
+				pEnemy[i]->Update(Pause);
+			}
+			if (Inhale)
+			{
+				pEnemy[i]->SetTarget(pKirby);
+				pEnemy[i]->Update(false);
+				((Enemy*)pEnemy[i])->SetInhale(Inhale);
+			}
+			if (Molotov && !Inhale)
 			{
 				if ((pPlayer->GetTransform().Position.y + 1.5f >= pEnemy[i]->GetTransform().Position.y
 					&& pPlayer->GetTransform().Position.y - 1.5f <= pEnemy[i]->GetTransform().Position.y) || 
@@ -300,7 +323,16 @@ int ObjectManager::Update()
 					delete pEnemy[i];
 					pEnemy[i] = nullptr;
 				}
-			}			
+			}
+			if (Inhale && CollisionManager::RectCollision(
+				pEnemy[i]->GetTransform(),
+				pKirby->GetTransform()))
+			{
+				Kill++;
+				Score += 2000;
+				delete pEnemy[i];
+				pEnemy[i] = nullptr;
+			}
 		}
 	}
 	
@@ -323,7 +355,7 @@ int ObjectManager::Update()
 			}
 			for (int j = 0; j < 32; ++j)
 			{
-				if (pEnemy[j])
+				if (pEnemy[j] && !Inhale)
 				{
 					if (CollisionManager::RectCollision(
 						pEnemy[j]->GetTransform(),
@@ -352,7 +384,24 @@ int ObjectManager::Update()
 	{
 		if (eBullet[i])
 		{
-			eresult = eBullet[i]->Update(Pause);
+			if (!Inhale)
+			{
+				((Bullet*)eBullet[i])->SetInhale(Inhale);
+				eresult = eBullet[i]->Update(Pause);
+			}
+			if (Inhale)
+			{
+				eBullet[i]->SetTarget(pKirby);
+				((Bullet*)eBullet[i])->SetInhale(Inhale);
+				eresult = eBullet[i]->Update(false);				
+			}
+			if (Inhale && CollisionManager::RectCollision(
+				pKirby->GetTransform(),
+				eBullet[i]->GetTransform()))
+			{
+				Score += 100;
+				eresult = 1;
+			}
 			if (CollisionManager::RectCollision(
 				pPlayer->GetTransform(),
 				eBullet[i]->GetTransform()) && !SA)
@@ -372,14 +421,18 @@ int ObjectManager::Update()
 				}
 				eresult = 1;
 			}
-			if (Molotov)
+			if (Molotov && !Inhale)
 			{
 				if ((pPlayer->GetTransform().Position.y + 1.5f >= eBullet[i]->GetTransform().Position.y
 					&& pPlayer->GetTransform().Position.y - 1.5f <= eBullet[i]->GetTransform().Position.y) ||
 					(pPlayer->GetTransform().Position.x + 2.5f >= eBullet[i]->GetTransform().Position.y
 						&& pPlayer->GetTransform().Position.x - 2.5f <= eBullet[i]->GetTransform().Position.y))
+				{
+					Score += 50;
 					eresult = 1;
+				}
 			}
+			
 		}
 		
 		if (eresult == 1)
@@ -391,22 +444,82 @@ int ObjectManager::Update()
 
 	if (Skill)
 	{
-		if (dwKey & KEY_R)
+		if (dwKey & KEY_R && Time + 100 < GetTickCount64())
 		{
 			Active = GetTickCount64();
+			TKirby = GetTickCount64();
 			AtvSkill = true;
 		}
 	}
 
 	if (AtvSkill)
 	{
+		if (Active + 1200 > GetTickCount64())
+		{
+			if (TKirby + 50 < GetTickCount64())
+			{
+				if (KWidth < 30)
+					KWidth += 2;
+				if (KHeight > 14 && !Bounce)
+					KHeight -= 2;
+				if (KHeight <= 14)
+					Bounce = true;
+				if (Bounce && KHeight < 29)
+					KHeight += 2;
 
+				TKirby = GetTickCount64();
+			}
+		}
+		if (Active + 2500 <= GetTickCount64())
+		{
+			Inhale = true;
+		}
+		if (Active + 2500 <= GetTickCount64() && Active + 10000 > GetTickCount64())
+		{
+			if (TKirby + 750 < GetTickCount64())
+			{
+				TKirby = GetTickCount64();
+				if (Rend == 0)
+					Rend = 1;
+				else if (Rend == 1)
+					Rend = 0;
+			}
+		}
+		if (Active + 10000 <= GetTickCount64())
+		{
+			for (int i = 0; i < 128; ++i)
+			{
+				if (eBullet[i])
+				{
+					delete eBullet[i];
+					eBullet[i] = nullptr;
+				}
+			}
+			KWidth = 0.0f;
+			KHeight = 29.0f;
+			Skill = false;
+			AtvSkill = false;
+			Bounce = false;
+			Inhale = false; 
+		}
 	}
+
+	
 	return 0;
 }
 
 void ObjectManager::Render()
 {
+	if (AtvSkill)
+	{		
+		if (Active + 2500 <= GetTickCount64() && Active + 10000 > GetTickCount64())
+		{
+			if (Rend == 0)
+				((Kirby*)pKirby)->RendInhale1(KWidth + 36, KHeight - 12);
+			if (Rend == 1)
+				((Kirby*)pKirby)->RendInhale2(KWidth + 36, KHeight - 12);
+		}
+	}
 	if(pItem)
 		pItem->Render();
 	for (int i = 0; i < 128; ++i)
@@ -444,9 +557,18 @@ void ObjectManager::Render()
 			CursorManager::GetInstance()->WriteBuffer(pPlayer->GetPosition().x - 2, i, (char*)"¡á¡á¡á", 12);
 		}		
 	}
-	/*((Kirby*)pKirby)->RendKirby1();
-	((Kirby*)pKirby)->RendKirby2();
-	((Kirby*)pKirby)->RendKirby3();*/
+	if (AtvSkill)
+	{
+		if (Active + 1200 > GetTickCount64())
+			((Kirby*)pKirby)->RendKirby1(KWidth, KHeight);
+
+		if (Active + 1200 <= GetTickCount64() && Active + 2500 > GetTickCount64())
+			((Kirby*)pKirby)->RendKirby2(KWidth, KHeight - 2);
+		if (Active + 2500 <= GetTickCount64() && Active + 10000 > GetTickCount64())
+		{			
+			((Kirby*)pKirby)->RendKirby3(KWidth, KHeight);
+		}
+	}
 }
 
 void ObjectManager::SoftRelease()
@@ -475,6 +597,12 @@ void ObjectManager::SoftRelease()
 	Time = GetTickCount64();
 	HP = 5;
 	pPlayer->SetPosition(Vector3(60.0f, 25.0f));
+	KWidth = 0.0f;
+	KHeight = 29.0f;
+	Skill = false;
+	AtvSkill = false;
+	Bounce = false;
+	Inhale = false;
 }
 
 void ObjectManager::Release()

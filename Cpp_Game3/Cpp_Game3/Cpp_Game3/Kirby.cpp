@@ -1,7 +1,7 @@
 #include "Kirby.h"
 #include "CursorManager.h"
 
-Kirby::Kirby() : Time(0)
+Kirby::Kirby()
 {
 }
 
@@ -12,23 +12,23 @@ Kirby::~Kirby()
 
 void Kirby::Start()
 {
-	Info.Position = Vector3(0.0f, 0.0f);
+	Info.Position = Vector3(42.0f, 38.0f);
 	Info.Rotation = Vector3(0.0f, 0.0f);
-	Info.Scale = Vector3(10.0f, 8.0f);
+	Info.Scale = Vector3(8.0f, 8.0f);
 
 	Target = nullptr;
 	Speed = 1.0f;
 
-	Kirby1[0]  = (char*)":::";
-	Kirby1[1]  = (char*)":::::";
-	Kirby1[2]  = (char*)"::::::";
-	Kirby1[3]  = (char*)":::********";
-	Kirby1[4]  = (char*)"******* *****";
-	Kirby1[5]  = (char*)"*******  ** ***";
-	Kirby1[6]  = (char*)"******** **  ***";
-	Kirby1[7]  = (char*)"***********  ****";
-	Kirby1[8]  = (char*)"*********   *******";
-	Kirby1[9]  = (char*)"********** *********";
+	Kirby1[0] = (char*)":::";
+	Kirby1[1] = (char*)":::::";
+	Kirby1[2] = (char*)"::::::";
+	Kirby1[3] = (char*)":::********";
+	Kirby1[4] = (char*)"******* *****";
+	Kirby1[5] = (char*)"*******  ** ***";
+	Kirby1[6] = (char*)"******** **  ***";
+	Kirby1[7] = (char*)"***********  ****";
+	Kirby1[8] = (char*)"*********   *******";
+	Kirby1[9] = (char*)"********** *********";
 	Kirby1[10] = (char*)"************     **";
 	Kirby1[11] = (char*)"**********";
 	Kirby1[12] = (char*)"*********";
@@ -97,16 +97,16 @@ void Kirby::Start()
 	Kirby2[41] = (char*)"VVFV*";
 	Kirby2[42] = (char*)"*VFF*";
 
-	Kirby3[0]  = (char*)":::::";
-	Kirby3[1]  = (char*)"::********::::::";
-	Kirby3[2]  = (char*)":****:*:::********:";
-	Kirby3[3]  = (char*)":*****:**:::***::*:*******";
-	Kirby3[4]  = (char*)"***::::**::::   :*  ******";
-	Kirby3[5]  = (char*)"***::::*:::::   ::   :***";
-	Kirby3[6]  = (char*)"****::*::::::*  ::* *****:";
-	Kirby3[7]  = (char*)"******::***::**VIIV*:***:";
-	Kirby3[8]  = (char*)"****::**:::VNNNNNM*****";
-	Kirby3[9]  = (char*)"****:::::VMMMMMMNM****";
+	Kirby3[0] = (char*)":::::";
+	Kirby3[1] = (char*)"::********::::::";
+	Kirby3[2] = (char*)":****:*:::********:";
+	Kirby3[3] = (char*)":*****:**:::***::*:*******";
+	Kirby3[4] = (char*)"***::::**::::   :*  ******";
+	Kirby3[5] = (char*)"***::::*:::::   ::   :***";
+	Kirby3[6] = (char*)"****::*::::::*  ::* *****:";
+	Kirby3[7] = (char*)"******::***::**VIIV*:***:";
+	Kirby3[8] = (char*)"****::**:::VNNNNNM*****";
+	Kirby3[9] = (char*)"****:::::VMMMMMMNM****";
 	Kirby3[10] = (char*)"*****::::IMIIIMMMNV**";
 	Kirby3[11] = (char*)"******::*IIFVVFIMMV**";
 	Kirby3[12] = (char*)"*******IVVVVVFIMV**";
@@ -132,6 +132,84 @@ void Kirby::Start()
 	Kirby3[32] = (char*)"*MIIMMM*     *MMM*";
 	Kirby3[33] = (char*)"VMIII*";
 	Kirby3[34] = (char*)"**";
+
+	Inhale1[0] = (char*)"   ``";
+	Inhale1[1] = (char*)"   ``_";
+	Inhale1[2] = (char*)"     ;`";
+	Inhale1[3] = (char*)"     .^_";
+	Inhale1[4] = (char*)"      ,>-  ``";
+	Inhale1[5] = (char*)"      `::  `.`";
+	Inhale1[6] = (char*)"       ,:.  ``";
+	Inhale1[7] = (char*)"       `:,  `";
+	Inhale1[8] = (char*)"        ::`   `--";
+	Inhale1[9] = (char*)"        :`_   ._,`";
+	Inhale1[10] = (char*)"        ,_,   -__`";
+	Inhale1[11] = (char*)"        -_,   ---`  ``";
+	Inhale1[12] = (char*)"        -,:  `---`  ``";
+	Inhale1[13] = (char*)"  `-    -,:  `...`  .`";
+	Inhale1[14] = (char*)"  `^`   ,::  `.```";
+	Inhale1[15] = (char*)"   ;,   :!,   ```";
+	Inhale1[16] = (char*)"   :`   =;.   ```";
+	Inhale1[17] = (char*)"   `:  ->!    ``";
+	Inhale1[18] = (char*)"             -_.";
+	Inhale1[19] = (char*)"   ::  !=_";
+	Inhale1[20] = (char*)"   =: `;;`";
+	Inhale1[21] = (char*)"  -)-`=>`";
+	Inhale1[22] = (char*)"-`:= `^!`  ``";
+	Inhale1[23] = (char*)"*`>`_^!`  `_.";
+	Inhale1[24] = (char*)"!,.=*-   `..";
+	Inhale1[25] = (char*)"`_=:`    ``";
+	Inhale1[26] = (char*)"`.`";
+	Inhale1[27] = (char*)" ";
+	Inhale1[28] = (char*)"-";
+	Inhale1[29] = (char*)"  _,";
+	Inhale1[30] = (char*)"=";
+	Inhale1[31] = (char*)"                       .`^_";
+	Inhale1[32] = (char*)"                   `-,!=,`";
+	Inhale1[33] = (char*)"               `._`:=:_`";
+	Inhale1[34] = (char*)"   -:==!,__,,`!~^!`,-";
+	Inhale1[35] = (char*)"    :~:,____,_-.`";
+	Inhale1[36] = (char*)"     `:^*!`___`!:-`";
+	Inhale1[37] = (char*)"        `____--`";
+
+	Inhale2[0]  = (char*)" ";
+	Inhale2[1]  = (char*)" ";
+	Inhale2[2]  = (char*)" ";
+	Inhale2[3]  = (char*)"                           `";
+	Inhale2[4]  = (char*)"                            `` `";
+	Inhale2[5]  = (char*)"                             ````";
+	Inhale2[6]  = (char*)"                             ``-.";
+	Inhale2[7]  = (char*)"                              ```";
+	Inhale2[8]  = (char*)"                             ` `";
+	Inhale2[9]  = (char*)"                             `-`";
+	Inhale2[10] = (char*)"                            `--`";
+	Inhale2[11] = (char*)"                     ```   `--.";
+	Inhale2[12] = (char*)"                   `.--`   ```";
+	Inhale2[13] = (char*)"                   `..-`  ``.`";
+	Inhale2[14] = (char*)"                  `...`   ``` ";
+	Inhale2[15] = (char*)"                 ```.`    `";
+	Inhale2[16] = (char*)"                 ````";
+	Inhale2[17] = (char*)"                 ```     `";
+	Inhale2[18] = (char*)"                `.-`    `.`";
+	Inhale2[19] = (char*)"-             ```.`    ``";
+	Inhale2[20] = (char*)"";
+	Inhale2[21] = (char*)"              ````";
+	Inhale2[22] = (char*)"";
+	Inhale2[23] = (char*)"";
+	Inhale2[24] = (char*)"";
+	Inhale2[25] = (char*)"";
+	Inhale2[26] = (char*)"";
+	Inhale2[27] = (char*)"";
+	Inhale2[28] = (char*)"";
+	Inhale2[29] = (char*)"";
+	Inhale2[30] = (char*)"";
+	Inhale2[31] = (char*)":  ```     `";
+	Inhale2[32] = (char*)"`     ``..--`";
+	Inhale2[33] = (char*)" -._` `````";
+	Inhale2[34] = (char*)"";
+	Inhale2[35] = (char*)"";
+	Inhale2[36] = (char*)"";
+	Inhale2[37] = (char*)"";
 }
 
 int Kirby::Update(bool _Pause)
@@ -282,4 +360,88 @@ void Kirby::RendKirby3(float _x, float _y)
 	CursorManager::GetInstance()->WriteBuffer(_x + 5, _y +  17, Kirby3[33], 12);
 	CursorManager::GetInstance()->WriteBuffer(_x + 6, _y +  18, Kirby3[34], 12);
 	CursorManager::GetInstance()->WriteBuffer(_x + 13, _y +  14, (char*)"VMMMMM", 13);
+}
+
+void Kirby::RendInhale1(float _x, float _y)
+{
+	CursorManager::GetInstance()->WriteBuffer(_x, _y, Inhale1[0], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 1, Inhale1[1], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 2, Inhale1[2], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 3, Inhale1[3], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 4, Inhale1[4], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 5, Inhale1[5], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 6, Inhale1[6], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 7, Inhale1[7], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 8, Inhale1[8], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 9, Inhale1[9], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 10, Inhale1[10], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 11, Inhale1[11], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 12, Inhale1[12], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 13, Inhale1[13], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 14, Inhale1[14], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 15, Inhale1[15], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 16, Inhale1[16], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 17, Inhale1[17], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 18, Inhale1[18], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 19, Inhale1[19], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 20, Inhale1[20], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 21, Inhale1[21], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 22, Inhale1[22], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 23, Inhale1[23], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 24, Inhale1[24], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 25, Inhale1[25], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 26, Inhale1[26], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 27, Inhale1[27], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 28, Inhale1[28], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 29, Inhale1[29], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 20, Inhale1[30], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 21, Inhale1[31], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 22, Inhale1[32], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 23, Inhale1[33], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 24, Inhale1[34], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 25, Inhale1[35], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 26, Inhale1[36], 9);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 27, Inhale1[37], 9);
+}
+
+void Kirby::RendInhale2(float _x, float _y)
+{
+	CursorManager::GetInstance()->WriteBuffer(_x, _y, Inhale2[0], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 1, Inhale2[1], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 2, Inhale2[2], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 3, Inhale2[3], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 4, Inhale2[4], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 5, Inhale2[5], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 6, Inhale2[6], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 7, Inhale2[7], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 8, Inhale2[8], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 9, Inhale2[9], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 10, Inhale2[10], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 11, Inhale2[11], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 12, Inhale2[12], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 13, Inhale2[13], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 14, Inhale2[14], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 15, Inhale2[15], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 16, Inhale2[16], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 17, Inhale2[17], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 18, Inhale2[18], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 19, Inhale2[19], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 20, Inhale2[20], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 21, Inhale2[21], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 22, Inhale2[22], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 23, Inhale2[23], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 24, Inhale2[24], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 25, Inhale2[25], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 26, Inhale2[26], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 27, Inhale2[27], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 28, Inhale2[28], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 29, Inhale2[29], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 20, Inhale2[30], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 21, Inhale2[31], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 22, Inhale2[32], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 23, Inhale2[33], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 24, Inhale2[34], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 25, Inhale2[35], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 26, Inhale2[36], 11);
+	CursorManager::GetInstance()->WriteBuffer(_x, _y + 27, Inhale2[37], 11);
 }

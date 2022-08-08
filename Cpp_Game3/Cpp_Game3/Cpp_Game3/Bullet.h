@@ -6,6 +6,7 @@ class Bullet : public Object
 private:
 	int Index;
 	ULONGLONG T;
+	bool Inhale;
 public:
 	virtual void Start()override;
 	virtual int  Update(bool _Pause)override;
@@ -15,6 +16,7 @@ public:
 	void SetIndex(int _Index) { Index = _Index; }
 	int GetIndex() { return Index; }
 	void SetT(ULONGLONG _T) { T = _T; }
+	void SetInhale(bool _Inhale) { Inhale = _Inhale; }
 public:
 	Bullet();
 	virtual ~Bullet();

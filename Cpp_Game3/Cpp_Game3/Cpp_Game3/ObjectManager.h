@@ -33,10 +33,16 @@ private:
 	bool SA;
 	bool Skill;
 	bool AtvSkill;
+	bool Bounce;
+	bool Inhale;
 	ULONGLONG Active;
+	ULONGLONG TKirby;
 	int Score;
 	int Kill;
 	int HP;
+	int Rend;
+	float KWidth;
+	float KHeight;
 public:
 	void CreateObject(int _StateIndex, Vector3 _Position, DWORD _dwKey);
 	void CreateEBullet(int _StateIndex, Vector3 _Position);
