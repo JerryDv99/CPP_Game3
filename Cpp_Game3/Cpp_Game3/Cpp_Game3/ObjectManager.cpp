@@ -349,8 +349,10 @@ int ObjectManager::Update()
 				for (int j = 0; j < 32; ++j)
 				{
 					if (pEnemy[j])
+					{
 						pBullet[i]->SetTarget(pEnemy[j]);
-					break;
+						break;
+					}
 				}
 			}
 			for (int j = 0; j < 32; ++j)
