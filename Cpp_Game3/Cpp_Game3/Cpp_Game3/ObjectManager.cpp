@@ -16,8 +16,7 @@ ObjectManager* ObjectManager::Instance = nullptr;
 ObjectManager::ObjectManager()
 {
 	pPlayer = nullptr;
-	pItem = nullptr;
-	pKirby = nullptr;
+
 	Pause = false;
 	Static = false;
 	Molotov = false;
@@ -28,6 +27,7 @@ ObjectManager::ObjectManager()
 	AtvSkill = false;
 	Bounce = false;
 	Inhale = false;
+	M = false;
 	Active = 0;
 	TKirby = 0;
 	Time = 0;
@@ -40,12 +40,6 @@ ObjectManager::ObjectManager()
 	Rend = 0;
 	KWidth = 0.0f;
 	KHeight = 0.0f;
-	for (int i = 0; i < 128; ++i)
-		pBullet[i] = nullptr;
-	for (int i = 0; i < 128; ++i)
-		eBullet[i] = nullptr;
-	for (int i = 0; i < 32; ++i)
-		pEnemy[i] = nullptr;
 }
 
 ObjectManager::~ObjectManager()
@@ -53,8 +47,21 @@ ObjectManager::~ObjectManager()
 	Release();
 }
 
-void ObjectManager::CreateObject(int _StateIndex, Vector3 _Position, DWORD _dwKey)
+void ObjectManager::AddObject(Object* _Object)
 {
+	map<string, list<Object*>>::iterator iter = ObjectList.find(_Object->GetKey());
+
+	if (iter == ObjectList.end())
+	{
+		list<Object*> Temp;
+
+		Temp.push_back(_Object);
+
+		ObjectList.insert(make_pair(_Object->GetKey(), Temp));
+	}
+	else
+		iter->second.push_back(_Object);
+	/*
 	for (int i = 0; i < 256; ++i)
 	{
 		if (pBullet[i] == nullptr)
@@ -136,8 +143,9 @@ void ObjectManager::CreateObject(int _StateIndex, Vector3 _Position, DWORD _dwKe
 		}
 
 	}	
+	*/
 }
-
+/*
 void ObjectManager::CreateEBullet(int _StateIndex, Vector3 _Position)
 {
 	Vector3 Direction;
@@ -169,21 +177,17 @@ void ObjectManager::CreateEBullet(int _StateIndex, Vector3 _Position)
 		}
 	}	
 }
+*/
 
 void ObjectManager::Start()
 {
-	pPlayer = ObjectFactory::CreatePlayer();
-	pKirby = new Kirby;
-	pKirby->Start();
 	KWidth = 0.0f;
 	KHeight = 29.0f;
 	Bounce = false;
 	Inhale = false;
 	iTime = GetTickCount64();
 	Time = GetTickCount64();
-	HP = 5;
-
-	Skill = true;
+	HP = 5;	
 }
 
 int ObjectManager::Update()
@@ -195,6 +199,9 @@ int ObjectManager::Update()
 	Kill = 0;
 	fire = pPlayer->Update(Pause);
 
+	if (Time + 1000 < GetTickCount64())
+		Skill = true;
+
 	if (Pause)
 	{
 		Time = GetTickCount64();
@@ -203,11 +210,12 @@ int ObjectManager::Update()
 	if (fire == 1)
 	{
 		if(!Static)
-			CreateObject(0, pPlayer->GetPosition(), dwKey);
+			ObjectFactory<Bullet>::CreateObject(pPlayer->GetPosition());
 		else if (Static && pEnemy[0] != nullptr)
 			CreateObject(1, pPlayer->GetPosition(), dwKey);
 	}
 
+	/*
 	if (Time + 1500 < GetTickCount64())
 	{
 		Time = GetTickCount64();
@@ -222,6 +230,7 @@ int ObjectManager::Update()
 			
 		}
 	}
+	*/
 
 	if (iTime + 10000 < GetTickCount64())
 	{
@@ -551,13 +560,27 @@ void ObjectManager::Render()
 	}
 	if (BuffTime + 1000 >= GetTickCount64() && Molotov)
 	{
-		CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 12);
-		CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y - 1, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 12);
-		CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y + 1, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 12);
-		for (int i = 0; i < 50; ++i)
+		M = !M;
+		if (M)
 		{
-			CursorManager::GetInstance()->WriteBuffer(pPlayer->GetPosition().x - 2, i, (char*)"¡á¡á¡á", 12);
-		}		
+			CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 12);
+			CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y - 1, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 12);
+			CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y + 1, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 12);
+			for (int i = 0; i < 50; ++i)
+			{
+				CursorManager::GetInstance()->WriteBuffer(pPlayer->GetPosition().x - 2, i, (char*)"¡á¡á¡á", 12);
+			}
+		}
+		else if (!M)
+		{
+			CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 14);
+			CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y - 1, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 14);
+			CursorManager::GetInstance()->WriteBuffer(0.0f, pPlayer->GetPosition().y + 1, (char*)"¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á", 14);
+			for (int i = 0; i < 50; ++i)
+			{
+				CursorManager::GetInstance()->WriteBuffer(pPlayer->GetPosition().x - 2, i, (char*)"¡á¡á¡á", 14);
+			}
+		}
 	}
 	if (AtvSkill)
 	{

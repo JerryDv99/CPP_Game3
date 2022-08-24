@@ -14,12 +14,9 @@ public:
 		return Instance;
 	}
 private:
-	Object* pBullet[128];
-	Object* eBullet[128];
+	map<string, list<Object*>> ObjectList;
+
 	Object* pPlayer;
-	Object* pEnemy[32];
-	Object* pItem;
-	Object* pKirby;
 	ULONGLONG Time;
 	ULONGLONG iTime;
 	ULONGLONG BuffTime;
@@ -35,6 +32,7 @@ private:
 	bool AtvSkill;
 	bool Bounce;
 	bool Inhale;
+	bool M;
 	ULONGLONG Active;
 	ULONGLONG TKirby;
 	int Score;
@@ -44,13 +42,13 @@ private:
 	float KWidth;
 	float KHeight;
 public:
-	void CreateObject(int _StateIndex, Vector3 _Position, DWORD _dwKey);
-	void CreateEBullet(int _StateIndex, Vector3 _Position);
+	void AddObject(Object* _Object);
 	void Start();
 	int Update();
 	void Render();
 	void SoftRelease();
 	void Release();
+public:
 	void SetPause(bool _Pause) { Pause = _Pause; }
 	void SetSkill(bool _Skill) { Skill = _Skill; }
 	int GetScore() { return Score; }
